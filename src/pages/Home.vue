@@ -1,3 +1,11 @@
 <template>
-    <h1>Home</h1>
+    <div class="flex">
+        <div>
+           Home
+        </div>
+    </div>
 </template>
+
+<script lang="ts" setup>
+
+</script>
