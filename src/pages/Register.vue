@@ -47,9 +47,10 @@
         </div>
         <button
           type="submit"
-          class="h-[48px] bg-green rounded-[10px] text-[#fff] w-full text-xl font-semibold"
+          class="h-[48px] bg-green rounded-[10px] text-[#fff] w-full text-xl font-semibold flex items-center justify-center"
         >
-          Register
+          <span v-if="!loading">Register</span>
+          <LoaderVue v-if="loading" />
         </button>
         <p>
           Already have a linkbum account?
@@ -75,6 +76,7 @@ import { useTitle } from "vue-page-title";
 import { useRouter } from "vue-router";
 import { useToast } from "vue-toastification";
 import auth from "../../composables/auth/auth";
+import LoaderVue from "../components/Loader.vue";
 const { title } = useTitle("Register an account");
 const router = useRouter();
 const toast = useToast();
@@ -84,11 +86,12 @@ const form = reactive({
   password: "",
   gender: "",
 });
-const btnDisabled = ref<boolean>(false);
+const loading = ref<boolean>(false);
 const registerUser = () => {
+  loading.value = true;
   auth(form, "/register")
     .then((result) => {
-      console.log(result);
+      loading.value = false;
       if (result.data.success === true) {
         toast.success(result.data.message, {
           timeout: 2000,
@@ -97,7 +100,7 @@ const registerUser = () => {
       }
     })
     .catch((err) => {
-      console.log(err);
+      loading.value = false;
       toast.error(
         err.response.data.username || err.response.data.email || err.response.data.error,
         {

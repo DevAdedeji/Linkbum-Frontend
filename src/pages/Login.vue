@@ -24,9 +24,10 @@
         </div>
         <button
           type="submit"
-          class="h-[48px] bg-green rounded-[10px] text-[#fff] w-full text-xl font-semibold"
+          class="h-[48px] bg-green rounded-[10px] text-[#fff] w-full text-xl font-semibold flex items-center justify-center"
         >
-          Login
+          <span v-if="!loading">Login</span>
+          <LoaderVue v-if="loading" />
         </button>
         <p>
           Don't have a linkbum account?
@@ -48,6 +49,7 @@
 
 <script lang="ts" setup>
 import { ref, reactive } from "vue";
+import LoaderVue from "../components/Loader.vue";
 import auth from "../../composables/auth/auth";
 import { useTitle } from "vue-page-title";
 import { useRouter } from "vue-router";
@@ -59,12 +61,14 @@ const form = reactive({
   username: "",
   password: "",
 });
-const btnDisabled = ref<boolean>(false);
+const loading = ref<boolean>(false);
 const loginUser = () => {
+  loading.value = true;
   auth(form, "/login")
     .then((result) => {
-      console.log(result);
+      loading.value = false;
       if (result.data.success === true) {
+        sessionStorage.setItem("auth.linkbum", result.data.token);
         router.push("/dashboard");
       } else {
         toast.error(result.data.message, {
@@ -73,7 +77,7 @@ const loginUser = () => {
       }
     })
     .catch((err) => {
-      console.log(err);
+      loading.value = false;
       toast.error(
         err.response.data.username || err.response.data.email || err.response.data.error,
         {
