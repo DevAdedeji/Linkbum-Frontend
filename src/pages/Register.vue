@@ -64,6 +64,8 @@
 
 <script lang="ts" setup>
 import { ref } from "vue";
+import { useTitle } from "vue-page-title";
+const { title } = useTitle("Register an account");
 const username = ref<string>("");
 const email = ref<string>("");
 const password = ref<string>("");

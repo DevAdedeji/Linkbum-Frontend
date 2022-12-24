@@ -21,4 +21,6 @@
 
 <script lang="ts" setup>
 import Header from "../components/Header.vue";
+import { useTitle } from "vue-page-title";
+const { title } = useTitle("The Only Link You'll Ever Need");
 </script>

@@ -48,6 +48,8 @@
 
 <script lang="ts" setup>
 import { ref } from "vue";
+import { useTitle } from "vue-page-title";
+const { title } = useTitle("Login your account");
 const username = ref<string>("");
 const password = ref<string>("");
 const btnDisabled = ref<boolean>(false);
