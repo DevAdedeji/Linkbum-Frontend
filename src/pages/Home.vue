@@ -7,7 +7,7 @@
       >
         The Only <span class="text-green">Link</span> You'll Ever Need
       </h1>
-      <p class="text-xl font-black pb-5">
+      <p class="text-xl text-center font-black pb-5">
         Connect audiences to all of your content with just one link
       </p>
       <router-link
