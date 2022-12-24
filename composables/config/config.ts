@@ -1,1 +1,3 @@
-const apiURL:String = "https://dull-puce-cobra-veil.cyclic.app/"
+const apiURL: string = "https://linkbum.cyclic.app/"
+// const apiURL: string = "http://localhost:3000"
+export default apiURL;

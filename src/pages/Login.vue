@@ -10,7 +10,7 @@
           <label for="username" class="text-xl font-semibold">Username </label>
           <input
             type="text"
-            v-model="username"
+            v-model="form.username"
             class="bg-grey rounded-[10px] w-full h-[48px] px-2"
           />
         </div>
@@ -18,7 +18,7 @@
           <label for="password" class="text-xl font-semibold">Password </label>
           <input
             type="password"
-            v-model="password"
+            v-model="form.password"
             class="bg-grey rounded-[10px] w-full h-[48px] px-2"
           />
         </div>
@@ -47,13 +47,39 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from "vue";
+import { ref, reactive } from "vue";
+import auth from "../../composables/auth/auth";
 import { useTitle } from "vue-page-title";
+import { useRouter } from "vue-router";
+import { useToast } from "vue-toastification";
+const router = useRouter();
+const toast = useToast();
 const { title } = useTitle("Login your account");
-const username = ref<string>("");
-const password = ref<string>("");
+const form = reactive({
+  username: "",
+  password: "",
+});
 const btnDisabled = ref<boolean>(false);
 const loginUser = () => {
-  console.log(username.value, password.value);
+  auth(form, "/login")
+    .then((result) => {
+      console.log(result);
+      if (result.data.success === true) {
+        router.push("/dashboard");
+      } else {
+        toast.error(result.data.message, {
+          timeout: 3000,
+        });
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      toast.error(
+        err.response.data.username || err.response.data.email || err.response.data.error,
+        {
+          timeout: 3000,
+        }
+      );
+    });
 };
 </script>

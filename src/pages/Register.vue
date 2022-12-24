@@ -10,21 +10,27 @@
           <label for="username" class="text-xl font-semibold">Username </label>
           <input
             type="text"
-            v-model="username"
+            v-model="form.username"
             class="bg-grey rounded-[10px] w-full h-[48px] px-2"
+            required
           />
         </div>
         <div class="flex flex-col gap-1 w-full">
           <label for="username" class="text-xl font-semibold">Email </label>
           <input
             type="email"
-            v-model="email"
+            v-model="form.email"
             class="bg-grey rounded-[10px] w-full h-[48px] px-2"
+            required
           />
         </div>
         <div class="flex flex-col gap-1 w-full">
           <label for="username" class="text-xl font-semibold">Gender </label>
-          <select v-model="gender" class="bg-grey rounded-[10px] w-full h-[48px] px-2">
+          <select
+            v-model="form.gender"
+            class="bg-grey rounded-[10px] w-full h-[48px] px-2"
+            required
+          >
             <option value="male">Male</option>
             <option value="female">Female</option>
             <option value="others">Others</option>
@@ -34,15 +40,16 @@
           <label for="password" class="text-xl font-semibold">Password </label>
           <input
             type="password"
-            v-model="password"
+            v-model="form.password"
             class="bg-grey rounded-[10px] w-full h-[48px] px-2"
+            required
           />
         </div>
         <button
           type="submit"
           class="h-[48px] bg-green rounded-[10px] text-[#fff] w-full text-xl font-semibold"
         >
-          Login
+          Register
         </button>
         <p>
           Already have a linkbum account?
@@ -63,15 +70,40 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from "vue";
+import { ref, reactive } from "vue";
 import { useTitle } from "vue-page-title";
+import { useRouter } from "vue-router";
+import { useToast } from "vue-toastification";
+import auth from "../../composables/auth/auth";
 const { title } = useTitle("Register an account");
-const username = ref<string>("");
-const email = ref<string>("");
-const password = ref<string>("");
-const gender = ref<string>("");
+const router = useRouter();
+const toast = useToast();
+const form = reactive({
+  username: "",
+  email: "",
+  password: "",
+  gender: "",
+});
 const btnDisabled = ref<boolean>(false);
 const registerUser = () => {
-  console.log(username.value, password.value);
+  auth(form, "/register")
+    .then((result) => {
+      console.log(result);
+      if (result.data.success === true) {
+        toast.success(result.data.message, {
+          timeout: 2000,
+        });
+        router.push("/login");
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      toast.error(
+        err.response.data.username || err.response.data.email || err.response.data.error,
+        {
+          timeout: 3000,
+        }
+      );
+    });
 };
 </script>
