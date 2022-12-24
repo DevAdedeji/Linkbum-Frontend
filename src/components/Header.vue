@@ -6,7 +6,7 @@
           Linkbum<span class="text-green text-5xl">.</span>
         </h1>
       </div>
-      <div class="flex items-center gap-5 text-xl">
+      <div class="hidden md:flex items-center gap-5 text-xl">
         <router-link
           :to="{ name: 'login' }"
           class="border border-green rounded-[10px] h-[48px] flex items-center justify-center px-5 hover:bg-green hover:text-[#fff]"
