@@ -52,7 +52,11 @@ const toast = useToast();
 let username = route.params.username;
 const { title } = useTitle(`@${username}`);
 let loading = ref(true);
-let user = ref({});
+let user = ref({
+  username: "",
+  profilePic: "",
+  links: "",
+});
 const getUserData = () => {
   getData(`api/user/${username}`)
     .then((result) => {
