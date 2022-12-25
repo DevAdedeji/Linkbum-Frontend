@@ -62,9 +62,14 @@ const getUserData = () => {
     })
     .catch((err) => {
       loading.value = false;
-      // console.log(err.response);
-      if (err) {
+      console.log(err.response);
+      if (err.response.status === 404) {
         toast.error("User not found, redirected to homepage", {
+          timeout: 3000,
+        });
+        router.push("/");
+      } else {
+        toast.error("Something went wrong, please try again", {
           timeout: 3000,
         });
         router.push("/");
