@@ -55,7 +55,7 @@ let loading = ref(true);
 let user = ref({
   username: "",
   profilePic: "",
-  links: "",
+  links: [],
 });
 const getUserData = () => {
   getData(`api/user/${username}`)
