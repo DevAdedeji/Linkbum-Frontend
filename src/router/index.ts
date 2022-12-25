@@ -2,8 +2,8 @@ import { createRouter, createWebHistory } from "vue-router";
 import Home from "../pages/Home.vue"
 import Login from "../pages/Login.vue"
 import Register from "../pages/Register.vue"
-import Dashboard from "../pages/Dashboard.vue"
 import User from "../pages/User.vue"
+import Dashboard from "../pages/Dashboard.vue"
 
 const router = createRouter({
     history:createWebHistory(import.meta.env.BASE_URL),
@@ -33,6 +33,14 @@ const router = createRouter({
             }
         },
         {
+            name:'user',
+            path:'/:username',
+            component:User,
+            meta:{
+                authRequired:false,
+            }
+        },
+        {
             name:'dashboard',
             path:'/dashboard',
             component:Dashboard,
@@ -40,14 +48,7 @@ const router = createRouter({
                 authRequired:true,
             }
         },
-        {
-            name:'user',
-            path:'/user/:username',
-            component:User,
-            meta:{
-                authRequired:true,
-            }
-        }
+        
     ]
 })
 
@@ -61,12 +62,14 @@ router.beforeEach((to, from, next)=>{
       }else{
         next({name: 'login'});
       }
-    } else {
+    } else if(to.name === 'login' || to.name === 'register' ) {
         if(token){
             next({name:'dashboard'});
         }else{
             next();
         }
+    }else{
+        next();
     }
 })
 
