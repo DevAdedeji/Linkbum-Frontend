@@ -1,7 +1,9 @@
-// import { Ref } from "vue";
-// const toggleShowHidePassword = (passwordShow:Ref<boolean>) => {
-//     passwordShow.value = !passwordShow.value;
-//     console.log(passwordShow)
-//   };
+import { ref } from "vue";
+let showPassword = ref<boolean>(true);
+export const usePassword = () => {
+  const togglePassword = ()=>{
+    showPassword.value = !showPassword.value;
+  }
+  return {showPassword, togglePassword};
+};
 
-// export default toggleShowHidePassword;

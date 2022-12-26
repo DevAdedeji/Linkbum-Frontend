@@ -36,14 +36,14 @@
                 alt="see-password-icon"
                 class="cursor-pointer"
                 :class="showPassword ? 'block' : 'hidden'"
-                @click="showPassword = !showPassword"
+                @click="togglePassword"
               />
               <img
                 src="../assets/eye-off.png"
                 class="cursor-pointer"
                 :class="showPassword ? 'hidden' : 'block'"
                 alt="dont-see-password-icon"
-                @click="showPassword = !showPassword"
+                @click="togglePassword"
               />
             </div>
           </div>
@@ -81,6 +81,8 @@ import auth from "../../composables/auth/auth";
 import { useTitle } from "vue-page-title";
 import { useRouter } from "vue-router";
 import { useToast } from "vue-toastification";
+import { usePassword } from "../../composables/utils/showHidepassword";
+const { togglePassword, showPassword } = usePassword();
 const router = useRouter();
 const toast = useToast();
 const { title } = useTitle("Login your account");
@@ -89,7 +91,7 @@ const form = reactive({
   password: "",
 });
 const loading = ref<boolean>(false);
-let showPassword = ref<boolean>(true);
+// let showPassword = ref<boolean>(true);
 const loginUser = () => {
   loading.value = true;
   auth(form, "/login")
