@@ -30,6 +30,7 @@
                 v-model="form.password"
                 class="bg-transparent w-[80%] outline-none"
                 ref="password"
+                required
               />
               <img
                 src="../assets/eye.png"
@@ -90,7 +91,7 @@ const form = reactive({
 });
 const loading = ref<boolean>(false);
 const passwordShowing = ref<boolean>(false);
-const password = ref<ComponentPublicInstance<HTMLInputElement>>();
+const password = ref<ComponentPublicInstance<HTMLInputElement> | null>(null);
 const loginUser = () => {
   loading.value = true;
   auth(form, "/login")
@@ -116,10 +117,10 @@ const loginUser = () => {
     });
 };
 const togglePassword = () => {
-  if (password.value.type === "password") {
+  if (password.value?.type === "password") {
     password.value.type = "text";
     passwordShowing.value = true;
-  } else {
+  } else if (password.value?.type === "text") {
     password.value.type = "password";
     passwordShowing.value = false;
   }
