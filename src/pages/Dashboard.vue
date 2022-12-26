@@ -1,7 +1,7 @@
 <template>
   <div class="relative bg-grey min-h-screen">
     <TheHeader class="sm:fixed sm:left-0 sm:right-0 sm:top-0" />
-    <div class="pt-[10vh]">
+    <div class="pt-4 sm:pt-[10vh]">
       <div class="lg:relative min-h-screen flex justify-between">
         <div class="w-full sm:w-[60%] xl:w-1/2">
           <div class="w-[90%] sm:w-[80%] mx-auto py-6">
