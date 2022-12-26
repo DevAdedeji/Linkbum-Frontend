@@ -1,6 +1,6 @@
 <template>
   <div class="relative bg-grey min-h-screen">
-    <TheHeader class="lg:fixed lg:eft-0 lg:right-0 lg:top-0" />
+    <TheHeader class="sm:fixed sm:left-0 sm:right-0 sm:top-0" />
     <div class="pt-[10vh]">
       <div class="lg:relative min-h-screen flex justify-between">
         <div class="w-full sm:w-[60%] xl:w-1/2">
