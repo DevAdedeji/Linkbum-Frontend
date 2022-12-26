@@ -48,25 +48,24 @@
               class="bg-grey rounded-[10px] w-full flex items-center justify-between h-[48px] px-2"
             >
               <input
-                type="password"
+                :type="showPassword ? 'password' : 'text'"
                 v-model="form.password"
-                class="bg-transparent w-[80%] outline-none"
-                ref="password"
+                class="bg-transparent w-[90%] outline-none"
                 required
               />
               <img
                 src="../assets/eye.png"
                 alt="see-password-icon"
                 class="cursor-pointer"
-                :class="passwordShowing ? 'hidden' : 'block'"
-                @click="togglePassword"
+                :class="showPassword ? 'block' : 'hidden'"
+                @click="showPassword = !showPassword"
               />
               <img
                 src="../assets/eye-off.png"
                 class="cursor-pointer"
-                :class="passwordShowing ? 'block' : 'hidden'"
+                :class="showPassword ? 'hidden' : 'block'"
                 alt="dont-see-password-icon"
-                @click="togglePassword"
+                @click="showPassword = !showPassword"
               />
             </div>
           </div>
@@ -114,8 +113,7 @@ const form = reactive({
   gender: "",
 });
 const loading = ref<boolean>(false);
-const passwordShowing = ref<boolean>(false);
-const password = ref<ComponentPublicInstance<HTMLInputElement> | null>(null);
+const showPassword = ref<boolean>(true);
 const registerUser = () => {
   loading.value = true;
   auth(form, "/register")
@@ -137,14 +135,5 @@ const registerUser = () => {
         }
       );
     });
-};
-const togglePassword = () => {
-  if (password.value?.type === "password") {
-    password.value.type = "text";
-    passwordShowing.value = true;
-  } else if (password.value?.type === "text") {
-    password.value.type = "password";
-    passwordShowing.value = false;
-  }
 };
 </script>
