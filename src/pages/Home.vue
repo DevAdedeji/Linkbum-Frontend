@@ -11,7 +11,7 @@
         Connect audiences to all of your content with just one link
       </p>
       <router-link
-        :to="{ name: 'login' }"
+        :to="{ name: 'register' }"
         class="h-[48px] bg-green rounded-[10px] text-[#ffff] flex items-center justify-center px-5"
         >Get Started</router-link
       >

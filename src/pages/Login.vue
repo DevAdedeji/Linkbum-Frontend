@@ -1,13 +1,18 @@
 <template>
-  <div class="flex flex-col lg:flex-row bg-[#ffff] justify-between h-screen max-h-screen">
-    <div class="w-full lg:w-1/2 login-form flex items-center min-h-screen justify-center">
+  <div class="flex flex-col lg:flex-row bg-[#ffff] justify-between h-[90vh] lg:h-screen">
+    <Header class="block lg:hidden" />
+    <div
+      class="w-full lg:w-1/2 login-form flex items-center min-h-[90vh] lg:min-h-screen justify-center"
+    >
       <form
         @submit.prevent="loginUser"
         class="w-[90%] sm:w-[60%] flex justify-center items-center flex-col gap-10"
       >
-        <h1 class="text-6xl font-bold">Login</h1>
+        <h1 class="text-2xl lg:text-3xl font-bold text-center whitespace-nowrap">
+          Login to your <span class="text-green">Linkbum</span>
+        </h1>
         <div class="flex flex-col gap-1 w-full">
-          <label for="username" class="text-xl font-semibold">Username </label>
+          <label for="username" class="text-[16px] font-semibold">Username </label>
           <input
             type="text"
             v-model="form.username"
@@ -15,7 +20,7 @@
           />
         </div>
         <div class="flex flex-col gap-1 w-full">
-          <label for="password" class="text-xl font-semibold">Password </label>
+          <label for="password" class="text-[16px] font-semibold">Password </label>
           <input
             type="password"
             v-model="form.password"
@@ -30,7 +35,7 @@
           <LoaderVue v-if="loading" />
         </button>
         <p>
-          Don't have a linkbum account?
+          Don't have an account?
           <router-link :to="{ name: 'register' }" class="text-blue-700 underline">
             Create one
           </router-link>
@@ -50,6 +55,7 @@
 <script lang="ts" setup>
 import { ref, reactive } from "vue";
 import LoaderVue from "../components/Loader.vue";
+import Header from "../components/Header.vue";
 import auth from "../../composables/auth/auth";
 import { useTitle } from "vue-page-title";
 import { useRouter } from "vue-router";

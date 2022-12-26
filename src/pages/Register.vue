@@ -1,13 +1,20 @@
 <template>
-  <div class="flex flex-col lg:flex-row bg-[#ffff] justify-between h-screen max-h-screen">
-    <div class="w-full lg:w-1/2 login-form flex items-center min-h-screen justify-center">
+  <div
+    class="flex flex-col lg:flex-row bg-[#ffff] justify-between h-[90vh] lg:h-screen max-h-screen"
+  >
+    <Header class="block lg:hidden" />
+    <div
+      class="w-full lg:w-1/2 login-form flex items-center min-h-[90vh] lg:min-h-screen justify-center"
+    >
       <form
         @submit.prevent="registerUser"
         class="w-[90%] sm:w-[60%] flex justify-center items-center flex-col gap-6"
       >
-        <h1 class="text-6xl font-bold">Register</h1>
+        <h1 class="text-2xl lg:text-3xl font-bold text-center whitespace-nowrap">
+          Create your account
+        </h1>
         <div class="flex flex-col gap-1 w-full">
-          <label for="username" class="text-xl font-semibold">Username </label>
+          <label for="username" class="text-[16px] font-semibold">Username </label>
           <input
             type="text"
             v-model="form.username"
@@ -16,7 +23,7 @@
           />
         </div>
         <div class="flex flex-col gap-1 w-full">
-          <label for="username" class="text-xl font-semibold">Email </label>
+          <label for="username" class="text-[16px] font-semibold">Email </label>
           <input
             type="email"
             v-model="form.email"
@@ -25,7 +32,7 @@
           />
         </div>
         <div class="flex flex-col gap-1 w-full">
-          <label for="username" class="text-xl font-semibold">Gender </label>
+          <label for="username" class="text-[16px] font-semibold">Gender </label>
           <select
             v-model="form.gender"
             class="bg-grey rounded-[10px] w-full h-[48px] px-2"
@@ -37,7 +44,7 @@
           </select>
         </div>
         <div class="flex flex-col gap-1 w-full">
-          <label for="password" class="text-xl font-semibold">Password </label>
+          <label for="password" class="text-[16px] font-semibold">Password </label>
           <input
             type="password"
             v-model="form.password"
@@ -47,13 +54,13 @@
         </div>
         <button
           type="submit"
-          class="h-[48px] bg-green rounded-[10px] text-[#fff] w-full text-xl font-semibold flex items-center justify-center"
+          class="h-[48px] bg-green rounded-[10px] text-[#fff] w-full text-[16px] font-semibold flex items-center justify-center"
         >
           <span v-if="!loading">Register</span>
           <LoaderVue v-if="loading" />
         </button>
         <p>
-          Already have a linkbum account?
+          Already have an account?
           <router-link :to="{ name: 'login' }" class="text-blue-700 underline">
             Login
           </router-link>
@@ -77,6 +84,7 @@ import { useRouter } from "vue-router";
 import { useToast } from "vue-toastification";
 import auth from "../../composables/auth/auth";
 import LoaderVue from "../components/Loader.vue";
+import Header from "../components/Header.vue";
 const { title } = useTitle("Register an account");
 const router = useRouter();
 const toast = useToast();
