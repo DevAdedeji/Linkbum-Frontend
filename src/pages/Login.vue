@@ -1,53 +1,55 @@
 <template>
-  <div class="flex flex-col lg:flex-row bg-[#ffff] justify-between h-[90vh] lg:h-screen">
+  <div class="min-h-screen">
     <Header class="block lg:hidden" />
     <div
-      class="w-full lg:w-1/2 login-form flex items-center min-h-[90vh] lg:min-h-screen justify-center"
+      class="flex flex-col lg:flex-row py-16 lg:py-0 lg:justify-between lg:items-center min-h-[80vh] lg:min-h-screen"
     >
-      <form
-        @submit.prevent="loginUser"
-        class="w-[90%] sm:w-[60%] flex justify-center items-center flex-col gap-10"
-      >
-        <h1 class="text-2xl lg:text-3xl font-bold text-center whitespace-nowrap">
-          Login to your <span class="text-green">Linkbum</span>
-        </h1>
-        <div class="flex flex-col gap-1 w-full">
-          <label for="username" class="text-[16px] font-semibold">Username </label>
-          <input
-            type="text"
-            v-model="form.username"
-            class="bg-grey rounded-[10px] w-full h-[48px] px-2"
-          />
-        </div>
-        <div class="flex flex-col gap-1 w-full">
-          <label for="password" class="text-[16px] font-semibold">Password </label>
-          <input
-            type="password"
-            v-model="form.password"
-            class="bg-grey rounded-[10px] w-full h-[48px] px-2"
-          />
-        </div>
-        <button
-          type="submit"
-          class="h-[48px] bg-green rounded-[10px] text-[#fff] w-full text-xl font-semibold flex items-center justify-center"
+      <div class="w-full lg:w-1/2 flex items-center justify-center">
+        <form
+          @submit.prevent="loginUser"
+          class="w-[90%] sm:w-[60%] flex justify-center items-center flex-col gap-10"
         >
-          <span v-if="!loading">Login</span>
-          <LoaderVue v-if="loading" />
-        </button>
-        <p>
-          Don't have an account?
-          <router-link :to="{ name: 'register' }" class="text-blue-700 underline">
-            Create one
-          </router-link>
-        </p>
-      </form>
-    </div>
-    <div class="w-1/2 hidden lg:block h-full">
-      <img
-        src="../assets/01-Create-Account-1920x1920.webp"
-        alt="image"
-        class="w-full h-full"
-      />
+          <h1 class="text-2xl lg:text-3xl font-bold text-center whitespace-nowrap">
+            Login to your <span class="text-green">Linkbum</span>
+          </h1>
+          <div class="flex flex-col gap-1 w-full">
+            <label for="username" class="text-[16px] font-semibold">Username </label>
+            <input
+              type="text"
+              v-model="form.username"
+              class="bg-grey rounded-[10px] w-full h-[48px] px-2"
+            />
+          </div>
+          <div class="flex flex-col gap-1 w-full">
+            <label for="password" class="text-[16px] font-semibold">Password </label>
+            <input
+              type="password"
+              v-model="form.password"
+              class="bg-grey rounded-[10px] w-full h-[48px] px-2"
+            />
+          </div>
+          <button
+            type="submit"
+            class="h-[48px] bg-green rounded-[10px] text-[#fff] w-full text-xl font-semibold flex items-center justify-center"
+          >
+            <span v-if="!loading">Login</span>
+            <LoaderVue v-if="loading" />
+          </button>
+          <p>
+            Don't have an account?
+            <router-link :to="{ name: 'register' }" class="text-blue-700 underline">
+              Create one
+            </router-link>
+          </p>
+        </form>
+      </div>
+      <div class="w-1/2 hidden lg:block h-full">
+        <img
+          src="../assets/01-Create-Account-1920x1920.webp"
+          alt="image"
+          class="w-full h-full"
+        />
+      </div>
     </div>
   </div>
 </template>
