@@ -1,6 +1,6 @@
 <template>
   <div class="relative bg-grey min-h-screen">
-    <TheHeader class="fixed left-0 right-0 top-0" />
+    <TheHeader class="lg:fixed lg:eft-0 lg:right-0 lg:top-0" />
     <div class="pt-[10vh]">
       <div class="lg:relative min-h-screen flex justify-between">
         <div class="w-full sm:w-[60%] xl:w-1/2">
@@ -78,7 +78,7 @@ let user = ref({
     },
   ],
 });
-const id = sessionStorage.getItem("linkbum.userId");
+const id = localStorage.getItem("linkbum.userId");
 const getUserData = () => {
   getData(`api/user/me/${id}`)
     .then((result) => {

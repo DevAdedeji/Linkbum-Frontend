@@ -98,8 +98,8 @@ const loginUser = () => {
     .then((result) => {
       loading.value = false;
       if (result.data.success === true) {
-        sessionStorage.setItem("auth.linkbum", result.data.token);
-        sessionStorage.setItem("linkbum.userId", result.data.user._id);
+        localStorage.setItem("auth.linkbum", result.data.token);
+        localStorage.setItem("linkbum.userId", result.data.user._id);
         router.push("/dashboard");
       } else {
         toast.error(result.data.message, {

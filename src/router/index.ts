@@ -55,7 +55,7 @@ const router = createRouter({
 
 
 router.beforeEach((to, from, next)=>{
-    let token = sessionStorage.getItem("auth.linkbum")
+    let token = localStorage.getItem("auth.linkbum")
     if(to.meta.authRequired === true){
       if(token){
         next();
