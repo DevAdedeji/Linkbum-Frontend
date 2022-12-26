@@ -103,7 +103,7 @@ import { useToast } from "vue-toastification";
 import auth from "../../composables/auth/auth";
 import LoaderVue from "../components/Loader.vue";
 import Header from "../components/Header.vue";
-import { usePassword } from "../../composables/utils/showHidepassword";
+import { usePassword } from "../../composables/utils/showHide";
 const { togglePassword, showPassword } = usePassword();
 const { title } = useTitle("Register an account");
 const router = useRouter();

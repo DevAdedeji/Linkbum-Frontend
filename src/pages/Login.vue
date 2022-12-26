@@ -81,7 +81,7 @@ import auth from "../../composables/auth/auth";
 import { useTitle } from "vue-page-title";
 import { useRouter } from "vue-router";
 import { useToast } from "vue-toastification";
-import { usePassword } from "../../composables/utils/showHidepassword";
+import { usePassword } from "../../composables/utils/showHide";
 const { togglePassword, showPassword } = usePassword();
 const router = useRouter();
 const toast = useToast();
@@ -99,6 +99,7 @@ const loginUser = () => {
       loading.value = false;
       if (result.data.success === true) {
         sessionStorage.setItem("auth.linkbum", result.data.token);
+        sessionStorage.setItem("linkbum.userId", result.data.user._id);
         router.push("/dashboard");
       } else {
         toast.error(result.data.message, {
