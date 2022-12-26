@@ -17,16 +17,35 @@
             <input
               type="text"
               v-model="form.username"
-              class="bg-grey rounded-[10px] w-full h-[48px] px-2"
+              class="bg-grey rounded-[10px] w-full h-[48px] px-2 outline-none"
             />
           </div>
           <div class="flex flex-col gap-1 w-full">
             <label for="password" class="text-[16px] font-semibold">Password </label>
-            <input
-              type="password"
-              v-model="form.password"
-              class="bg-grey rounded-[10px] w-full h-[48px] px-2"
-            />
+            <div
+              class="bg-grey rounded-[10px] w-full flex items-center justify-between h-[48px] px-2"
+            >
+              <input
+                type="password"
+                v-model="form.password"
+                class="bg-transparent w-[80%] outline-none"
+                ref="password"
+              />
+              <img
+                src="../assets/eye.png"
+                alt="see-password-icon"
+                class="cursor-pointer"
+                :class="passwordShowing ? 'hidden' : 'block'"
+                @click="togglePassword"
+              />
+              <img
+                src="../assets/eye-off.png"
+                class="cursor-pointer"
+                :class="passwordShowing ? 'block' : 'hidden'"
+                alt="dont-see-password-icon"
+                @click="togglePassword"
+              />
+            </div>
           </div>
           <button
             type="submit"
@@ -55,7 +74,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, reactive } from "vue";
+import { ref, reactive, ComponentPublicInstance } from "vue";
 import LoaderVue from "../components/Loader.vue";
 import Header from "../components/Header.vue";
 import auth from "../../composables/auth/auth";
@@ -70,6 +89,8 @@ const form = reactive({
   password: "",
 });
 const loading = ref<boolean>(false);
+const passwordShowing = ref<boolean>(false);
+const password = ref<ComponentPublicInstance<HTMLInputElement>>();
 const loginUser = () => {
   loading.value = true;
   auth(form, "/login")
@@ -93,5 +114,14 @@ const loginUser = () => {
         }
       );
     });
+};
+const togglePassword = () => {
+  if (password.value.type === "password") {
+    password.value.type = "text";
+    passwordShowing.value = true;
+  } else {
+    password.value.type = "password";
+    passwordShowing.value = false;
+  }
 };
 </script>
