@@ -12,15 +12,13 @@
             >
               Add link
             </button>
-            <AddLinkVue v-if="showAddLinkComponent" />
+            <AddLinkVue v-if="showAddLinkComponent" @link-added="reloadLinks" />
             <div class="pt-10">
               <span class="border border-[#e9e9e9] p-3 rounded-lg">My links</span>
               <div class="grid grid-cols-1 gap-2 items-center justify-center pt-10">
                 <Loader class="pt-10" v-if="loading" />
                 <div v-for="link in user.links" v-else>
                   <div class="bg-[#fff] rounded-lg p-4">
-                    <!-- <p class="capitalize pb-2 font-bold">{{ link.title }}</p>
-                    <p class="font-medium">{{ link.link }}</p> -->
                     <input
                       type="text"
                       v-model="link.title"
@@ -30,9 +28,23 @@
                     <input
                       type="text"
                       v-model="link.link"
-                      class="font-medium w-full outline-none"
+                      class="font-medium w-full outline-none break-words"
                       disabled
                     />
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      style="fill: rgba(61, 167, 100, 1); transform: ; msfilter: "
+                      class="ml-auto cursor-pointer"
+                      @click="deleteCurentLink(link._id)"
+                    >
+                      <path
+                        d="M5 20a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8h2V6h-4V4a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2v2H3v2h2zM9 4h6v2H9zM8 8h9v12H7V8z"
+                      ></path>
+                      <path d="M9 10h2v8H9zm4 0h2v8h-2z"></path>
+                    </svg>
                   </div>
                 </div>
               </div>
@@ -61,7 +73,8 @@ import TheHeader from "../components/TheHeader.vue";
 import AddLinkVue from "../components/AddLink.vue";
 import { useAddLinkComponent } from "../../composables/utils/showHide";
 import Loader from "../components/Loader2.vue";
-import getData from "../../composables/getData/getData";
+import getData from "../../composables/get/getData";
+import { deleteLink } from "../../composables/post/postData";
 import { useToast } from "vue-toastification";
 const toast = useToast();
 const router = useRouter();
@@ -75,6 +88,7 @@ let user = ref({
     {
       title: "",
       link: "",
+      _id: "",
     },
   ],
 });
@@ -100,5 +114,38 @@ const getUserData = () => {
       }
     });
 };
+
 getUserData();
+const reloadLinks = () => {
+  getUserData();
+};
+const deleteCurentLink = (id: string) => {
+  deleteLink(`api/link/post/${id}`)
+    .then((result) => {
+      if (result.data.success === true) {
+        getUserData();
+        toast.success(result.data.message, {
+          timeout: 3000,
+        });
+      } else {
+        toast.error(result.data.message, {
+          timeout: 3000,
+        });
+      }
+    })
+    .catch((err) => {
+      toast.error(
+        err.response.data.title || err.response.data.link || err.response.data.error,
+        {
+          timeout: 3000,
+        }
+      );
+    });
+};
 </script>
+
+<style>
+input {
+  background-color: transparent;
+}
+</style>

@@ -44,7 +44,7 @@ import { useRoute, useRouter } from "vue-router";
 import { useToast } from "vue-toastification";
 import Footer from "../components/Footer.vue";
 import Loader from "../components/Loader2.vue";
-import getData from "../../composables/getData/getData";
+import getData from "../../composables/get/getData";
 
 const route = useRoute();
 const router = useRouter();

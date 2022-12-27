@@ -22,6 +22,9 @@
           v-model="form.link"
           required
         />
+        <span class="text-[12px] text-red-500" v-if="showLinkIsInvalid"
+          >Link is invalid</span
+        >
       </div>
       <button
         type="submit"
@@ -38,13 +41,50 @@
 import { useAddLinkComponent } from "../../composables/utils/showHide";
 import { ref, reactive } from "vue";
 import LoaderVue from "./Loader.vue";
+import postData from "../../composables/post/postData";
+import { isValidUrl } from "../../composables/utils/validURL";
+import { useToast } from "vue-toastification";
 const { toggleAddLinkComponent } = useAddLinkComponent();
 const loading = ref<boolean>(false);
+const toast = useToast();
 const form = reactive({
   title: "",
   link: "",
 });
+const showLinkIsInvalid = ref<boolean>(false);
+const emit = defineEmits(["linkAdded"]);
 const addLink = () => {
-  loading.value = true;
+  const isLinkValid = isValidUrl(form.link);
+  if (isLinkValid) {
+    loading.value = true;
+    postData("api/link/post", form)
+      .then((result) => {
+        loading.value = false;
+        if (result.data.sucess === true) {
+          toggleAddLinkComponent();
+          toast.success(result.data.message, {
+            timeout: 3000,
+          });
+          form.link = "";
+          form.title = "";
+          emit("linkAdded");
+        } else {
+          toast.error(result.data.message, {
+            timeout: 3000,
+          });
+        }
+      })
+      .catch((err) => {
+        toast.error(
+          err.response.data.title || err.response.data.link || err.response.data.error,
+          {
+            timeout: 3000,
+          }
+        );
+        loading.value = false;
+      });
+  } else {
+    showLinkIsInvalid.value = true;
+  }
 };
 </script>
