@@ -1,7 +1,7 @@
 <template>
   <div class="min-h-screen bg-[#ffff] h-screen">
-    <Header class="pb-40" />
-    <div class="w-full flex flex-col items-center justify-center">
+    <Header />
+    <div class="w-full flex flex-col items-center justify-center pt-40">
       <h1
         class="text-5xl md:text-7xl font-bold text-center text-dark max-w-[700px] mx-auto pb-5"
       >

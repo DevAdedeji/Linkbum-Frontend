@@ -100,6 +100,7 @@ const loginUser = () => {
       if (result.data.success === true) {
         localStorage.setItem("auth.linkbum", result.data.token);
         localStorage.setItem("linkbum.userId", result.data.user._id);
+        localStorage.setItem("linkbum.username", result.data.user.username);
         router.push("/dashboard");
       } else {
         toast.error(result.data.message, {

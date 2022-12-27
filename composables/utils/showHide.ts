@@ -15,3 +15,11 @@ export const useAddLinkComponent = ()=>{
   }
   return {showAddLinkComponent, toggleAddLinkComponent};
 }
+
+const showShareComponent = ref<boolean>(false)
+export const useShareComponent = () =>{
+  const toggleShareComponent = ()=>{
+    showShareComponent.value = !showShareComponent.value
+  }
+  return {showShareComponent, toggleShareComponent}
+}

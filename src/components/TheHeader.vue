@@ -4,12 +4,17 @@
       class="h-[10vh] flex items-center justify-between bg-[#fff] rounded-[50px] px-4 mx-2"
     >
       <div class="logo">
-        <h1 class="font-black text-xl lg:text-3xl">
-          Linkbum<span class="text-green text-5xl">.</span>
-        </h1>
+        <router-link :to="{ name: 'Home' }">
+          <h1 class="font-black text-xl lg:text-3xl">
+            Linkbum<span class="text-green text-5xl">.</span>
+          </h1>
+        </router-link>
       </div>
       <div>
-        <div class="flex items-center gap-1 border rounded-xl p-2 cursor-pointer">
+        <div
+          class="flex items-center gap-1 border rounded-xl p-2 cursor-pointer"
+          @click="toggleShareComponent"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -27,3 +32,8 @@
     </header>
   </div>
 </template>
+
+<script lang="ts" setup>
+import { useShareComponent } from "../../composables/utils/showHide";
+const { toggleShareComponent } = useShareComponent();
+</script>
