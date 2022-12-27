@@ -35,7 +35,7 @@
           required
         />
         <span class="text-[12px] text-red-500" v-if="showLinkIsInvalid"
-          >Link is invalid</span
+          >Link should be a valid URL</span
         >
       </div>
       <button
