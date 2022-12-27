@@ -13,7 +13,7 @@ const postData =async(endpoint:string, data:Object)=>{
     }
 }
 
-export const deleteLink =async(endpoint)=>{
+export const deleteLink =async(endpoint:string)=>{
    axios.defaults.headers.common['Authorization'] = `${token}`
     try{
         const response  = await axios.delete(apiURL + endpoint);
