@@ -16,7 +16,7 @@
             <label for="username" class="text-[16px] font-semibold">Username </label>
             <input
               type="text"
-              v-model="form.username"
+              v-model.trim="form.username"
               class="bg-grey rounded-[10px] w-full h-[48px] px-2 outline-none"
               required
             />
