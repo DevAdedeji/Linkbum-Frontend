@@ -5,12 +5,10 @@
     >
       <div class="logo h-full flex items-center">
         <router-link :to="{ name: 'Home' }">
-          <h1 class="font-black text-xl lg:text-3xl">
-            Linkbum<span class="text-green text-5xl">.</span>
-          </h1>
+          <img src="../assets/tree.png" class="w-[40px] h-[50px]" alt="" />
         </router-link>
       </div>
-      <div>
+      <div class="flex items-center gap-2">
         <div
           class="flex items-center gap-1 border rounded-xl p-2 cursor-pointer"
           @click="toggleShareComponent"
@@ -28,6 +26,24 @@
           </svg>
           <p>Share</p>
         </div>
+        <div
+          @click="logOut"
+          class="flex items-center gap-1 border rounded-xl p-2 cursor-pointer"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            style="fill: rgba(0, 0, 0, 1); transform: ; msfilter: "
+          >
+            <path d="M16 13v-2H7V8l-5 4 5 4v-3z"></path>
+            <path
+              d="M20 3h-9c-1.103 0-2 .897-2 2v4h2V5h9v14h-9v-4H9v4c0 1.103.897 2 2 2h9c1.103 0 2-.897 2-2V5c0-1.103-.897-2-2-2z"
+            ></path>
+          </svg>
+          Log out
+        </div>
       </div>
     </header>
   </div>
@@ -35,5 +51,11 @@
 
 <script lang="ts" setup>
 import { useShareComponent } from "../../composables/utils/showHide";
+import { useRouter } from "vue-router";
 const { toggleShareComponent } = useShareComponent();
+const router = useRouter();
+const logOut = () => {
+  localStorage.clear();
+  router.push("/");
+};
 </script>

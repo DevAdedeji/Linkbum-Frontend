@@ -52,7 +52,9 @@
       class="border border-[#e9e9e9] rounded-md p-2 w-full flex flex-col gap-2 items-start sm:flex-row sm:items-center justify-between hover:bg-[#e9e9e9] text-[14px]"
     >
       <p class="font-bold">{{ url }}</p>
-      <button @click="copyLink">{{ linkCopied ? "Copied!" : "Copy" }}</button>
+      <button @click="copyLink" class="underline">
+        {{ linkCopied ? "Copied!" : "Copy" }}
+      </button>
     </div>
   </div>
 </template>

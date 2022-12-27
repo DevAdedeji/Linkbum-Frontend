@@ -1,9 +1,10 @@
 import axios from "axios";
 import apiURL from "../config/config";
 
-let token =localStorage.getItem("auth.linkbum")
+
 
 const postData =async(endpoint:string, data:Object)=>{
+    let token =localStorage.getItem("auth.linkbum")
    axios.defaults.headers.common['Authorization'] = `${token}`
     try{
         const response  = await axios.post(apiURL + endpoint, data);
@@ -14,6 +15,7 @@ const postData =async(endpoint:string, data:Object)=>{
 }
 
 export const deleteLink =async(endpoint:string)=>{
+    let token =localStorage.getItem("auth.linkbum")
    axios.defaults.headers.common['Authorization'] = `${token}`
     try{
         const response  = await axios.delete(apiURL + endpoint);
