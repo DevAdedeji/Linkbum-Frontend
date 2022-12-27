@@ -62,12 +62,12 @@ router.beforeEach((to, from, next)=>{
       }else{
         next({name: 'login'});
       }
-    // } else if(to.name === 'login' || to.name === 'register' ) {
-    //     if(token){
-    //         next({name:'dashboard'});
-    //     }else{
-    //         next();
-    //     }
+    } else if(to.name === 'login' || to.name === 'register' ) {
+        if(token){
+            next({name:'dashboard'});
+        }else{
+            next();
+        }
     }else{
         next();
     }
