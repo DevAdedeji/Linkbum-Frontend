@@ -42,10 +42,16 @@
           class="hidden sm:w-[40%] xl:w-1/2 sm:flex items-center justify-center border-l border-[#e9e9e9] lg:fixed lg:top-[10vh] lg:bottom-0 lg:right-0"
         >
           <div
-            class="border-[15px] border-[#000] rounded-[25px] w-[352px] h-[724px] flex items-center justify-center box-border overflow-hidden"
+            class="border-[15px] border-[#000] rounded-[25px] w-[352px] h-[724px] min-w-[352px] min-h-[724px] flex items-center justify-center box-border overflow-hidden"
             style="transform: scale(0.582141) translate3d(0px, 0px, 0px)"
           >
-            <iframe :src="url" width="100%" height="100%" id="preview-iframe">
+            <iframe
+              class="previewIframe"
+              :src="url"
+              width="100%"
+              height="100%"
+              ref="previewIframe"
+            >
               <p>Your browser doesn't support this feature</p>
             </iframe>
           </div>
@@ -74,7 +80,7 @@ const { showAddLinkComponent, toggleAddLinkComponent } = useAddLinkComponent();
 const { showShareComponent } = useShareComponent();
 const { title } = useTitle("Dashboard");
 const username = localStorage.getItem("linkbum.username");
-const url = ref<string>(`https://linkbum.vercel.app/${username}`);
+const url = `https://linkbum.vercel.app/${username}`;
 const loading = ref<boolean>(true);
 let user = ref({
   username: "",
@@ -87,6 +93,7 @@ let user = ref({
     },
   ],
 });
+const previewIframe = ref<HTMLIFrameElement>();
 const id = localStorage.getItem("linkbum.userId");
 const getUserData = () => {
   getData(`api/user/me/${id}`)
@@ -109,11 +116,12 @@ const getUserData = () => {
       }
     });
 };
-
+let iframe = document.querySelector(".previewIframe");
 getUserData();
 const reloadLinks = () => {
   getUserData();
-  document.getElementById("preview-iframe").src += "";
+  // previewIframe.value?.contentWindow?.location.reload();
+  document.querySelector(".previewIframe").src += "";
 };
 </script>
 

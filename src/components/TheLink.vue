@@ -33,10 +33,10 @@
     <div class="mt-4 flex items-center justify-between">
       <button
         @click="updateLink(link._id)"
-        class="bg-green rounded-md p-2 text-[#fff]"
+        class="bg-green rounded-md p-2 text-[#fff] text-[14px]"
         v-if="!enableEdit"
       >
-        {{ updating ? "Updating" : "Update" }}
+        {{ updating ? "Updating..." : "Update" }}
       </button>
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -44,7 +44,7 @@
         height="24"
         viewBox="0 0 24 24"
         style="fill: rgba(61, 167, 100, 1); transform: ; msfilter: "
-        class="ml-auto"
+        class="ml-auto cursor-pointer"
         @click="deleteCurentLink(link._id)"
       >
         <path
@@ -79,10 +79,8 @@ const updating = ref<boolean>(false);
 const showLinkIsInvalid = ref<boolean>(false);
 
 const deleteCurentLink = (id: string) => {
-  updating.value = true;
   deleteLink(`api/link/post/${id}`)
     .then((result) => {
-      updating.value = false;
       if (result.data.success === true) {
         toast.success(result.data.message, {
           timeout: 3000,
@@ -95,7 +93,6 @@ const deleteCurentLink = (id: string) => {
       }
     })
     .catch((err) => {
-      updating.value = false;
       toast.error(
         err.response.data.title || err.response.data.link || err.response.data.error,
         {
@@ -112,8 +109,10 @@ const updateLink = (id: string) => {
   const { link, title } = props.link;
   const isLinkValid = isValidUrl(link);
   if (isLinkValid) {
+    updating.value = true;
     putData(`api/link/post/${id}`, { link, title })
       .then((result) => {
+        updating.value = false;
         showLinkIsInvalid.value = false;
         if (result.data.success) {
           toast.success(result.data.message, {
@@ -128,12 +127,15 @@ const updateLink = (id: string) => {
         }
       })
       .catch((err) => {
-        toast.error(
-          err.response.data.title || err.response.data.link || err.response.data.error,
-          {
-            timeout: 3000,
-          }
-        );
+        updating.value = false;
+        if (err) {
+          toast.error(
+            err.response.data.title || err.response.data.link || err.response.data.error,
+            {
+              timeout: 3000,
+            }
+          );
+        }
       });
   } else {
     showLinkIsInvalid.value = true;
