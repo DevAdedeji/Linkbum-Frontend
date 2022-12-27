@@ -3,7 +3,7 @@
     <header
       class="h-[10vh] flex items-center justify-between bg-[#fff] rounded-[50px] px-4 mx-2"
     >
-      <div class="logo">
+      <div class="logo h-full flex items-center">
         <router-link :to="{ name: 'Home' }">
           <h1 class="font-black text-xl lg:text-3xl">
             Linkbum<span class="text-green text-5xl">.</span>
