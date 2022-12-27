@@ -3,7 +3,7 @@ import apiURL from "../config/config";
 
 let token =localStorage.getItem("auth.linkbum")
 
-const postData =async(endpoint, data)=>{
+const postData =async(endpoint:string, data:Object)=>{
    axios.defaults.headers.common['Authorization'] = `${token}`
     try{
         const response  = await axios.post(apiURL + endpoint, data);
