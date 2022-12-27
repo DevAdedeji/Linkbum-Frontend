@@ -7,11 +7,20 @@
         <div class="w-full sm:w-[60%] xl:w-1/2">
           <div class="w-[90%] sm:w-[80%] mx-auto py-6">
             <button
-              class="bg-green w-full h-[48px] font-bold rounded-md text-[#fff] hover:scale-x-95 duration-500"
+              class="bg-green w-full h-[48px] font-bold rounded-[20px] text-[#fff] hover:scale-x-95 duration-500 flex items-center justify-center gap-1"
               v-if="!showAddLinkComponent"
               @click="toggleAddLinkComponent"
             >
-              Add link
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                style="fill: rgba(255, 255, 255, 1); transform: ; msfilter: "
+              >
+                <path d="M19 11h-6V5h-2v6H5v2h6v6h2v-6h6z"></path>
+              </svg>
+              <span>Add link</span>
             </button>
             <AddLinkVue v-if="showAddLinkComponent" @link-added="reloadLinks" />
             <div class="pt-10">
@@ -33,9 +42,12 @@
           class="hidden sm:w-[40%] xl:w-1/2 sm:flex items-center justify-center border-l border-[#e9e9e9] lg:fixed lg:top-[10vh] lg:bottom-0 lg:right-0"
         >
           <div
-            class="border-[5px] border-[#000] rounded-[20px] w-[200px] h-[400px] flex items-center justify-center"
+            class="border-[15px] border-[#000] rounded-[25px] w-[352px] h-[724px] flex items-center justify-center box-border overflow-hidden"
+            style="transform: scale(0.582141) translate3d(0px, 0px, 0px)"
           >
-            <p class="font-bold">Feature coming soon</p>
+            <iframe :src="url" width="100%" height="100%" id="preview-iframe">
+              <p>Your browser doesn't support this feature</p>
+            </iframe>
           </div>
         </div>
       </div>
@@ -61,6 +73,8 @@ const router = useRouter();
 const { showAddLinkComponent, toggleAddLinkComponent } = useAddLinkComponent();
 const { showShareComponent } = useShareComponent();
 const { title } = useTitle("Dashboard");
+const username = localStorage.getItem("linkbum.username");
+const url = ref<string>(`https://linkbum.vercel.app/${username}`);
 const loading = ref<boolean>(true);
 let user = ref({
   username: "",
@@ -99,6 +113,7 @@ const getUserData = () => {
 getUserData();
 const reloadLinks = () => {
   getUserData();
+  document.getElementById("preview-iframe").src += "";
 };
 </script>
 
