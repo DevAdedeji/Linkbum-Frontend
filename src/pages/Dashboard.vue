@@ -4,7 +4,7 @@
     <ShareComponent v-if="showShareComponent" />
     <div class="pt-4 sm:pt-[10vh]">
       <div class="lg:relative min-h-screen flex justify-between">
-        <div class="w-full sm:w-[60%] xl:w-1/2">
+        <div class="relative w-full flex flex-col items-center md:w-[60%] xl:w-1/2">
           <div class="w-[90%] sm:w-[80%] mx-auto py-6">
             <button
               class="bg-green w-full h-[48px] font-bold rounded-[20px] text-[#fff] hover:scale-x-95 duration-500 flex items-center justify-center gap-1"
@@ -37,13 +37,27 @@
               </div>
             </div>
           </div>
+          <button
+            class="fixed bottom-5 md:hidden border border-[#e9e9e9] shadow-xl p-2 rounded-[10px] font-bold flex items-center gap-1"
+            @click="showPreviewMobile = true"
+          >
+            <img src="../assets/eye.png" alt="eye-icon" />
+            <span>Preview</span>
+          </button>
         </div>
         <div
-          class="hidden sm:w-[40%] xl:w-1/2 sm:flex items-center justify-center border-l border-[#e9e9e9] lg:fixed lg:top-[10vh] lg:bottom-0 lg:right-0"
+          class="hidden md:flex flex-col md:bg-transparent md:w-[40%] xl:w-1/2 items-center justify-center border-l-4 border-[#e9e9e9] lg:fixed lg:top-[10vh] lg:bottom-0 lg:right-0"
+          :class="showPreviewMobile ? 'w-full !flex absolute bg-[#fff]' : ''"
         >
+          <span
+            class="block md:hidden text-2xl ml-auto mr-4 pt-4 font-bold cursor-pointer"
+            @click="showPreviewMobile = false"
+            >X</span
+          >
           <div
-            class="border-[15px] border-[#000] rounded-[25px] w-[352px] h-[724px] min-w-[352px] min-h-[724px] flex items-center justify-center box-border overflow-hidden"
-            style="transform: scale(0.582141) translate3d(0px, 0px, 0px)"
+            class="border-[15px] -mt-[10vh] border-[#000] rounded-[25px] w-[352px] h-[724px] min-w-[352px] min-h-[724px] flex items-center justify-center box-border overflow-hidden"
+            style="transform: scale(0.582141)"
+            :class="showPreviewMobile ? '-mt-[15vh] lg:-mt-0' : ''"
           >
             <iframe
               class="previewIframe"
@@ -95,6 +109,7 @@ let user = ref({
 });
 const previewIframe = ref<HTMLIFrameElement>();
 const id = localStorage.getItem("linkbum.userId");
+const showPreviewMobile = ref<boolean>(false);
 const getUserData = () => {
   getData(`api/user/me/${id}`)
     .then((result) => {
