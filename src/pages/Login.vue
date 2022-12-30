@@ -101,7 +101,7 @@ const loginUser = () => {
         localStorage.setItem("auth.linkbum", result.data.token);
         localStorage.setItem("linkbum.userId", result.data.user._id);
         localStorage.setItem("linkbum.username", result.data.user.username);
-        router.push("/dashboard");
+        router.push("/admin");
       } else {
         toast.error(result.data.message, {
           timeout: 3000,
