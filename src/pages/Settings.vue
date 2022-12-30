@@ -12,8 +12,19 @@
 import axios from "axios";
 import TheHeader from "../components/TheHeader.vue";
 const upload = async (e: Event) => {
-  //   let file = document.getElementById("profilePic")?.files[0];
-  //   let form = new FormData();
-  //   form.append("file", file);
+  // let file = document.getElementById("profilePic")?.files[0];
+  // let form = new FormData();
+  // form.append("file", file);
+  // let token = localStorage.getItem("auth.linkbum");
+  // axios.defaults.headers.common["Authorization"] = `${token}`;
+  // try {
+  //   const response = await axios.post(
+  //     "http://localhost:3000/api/user/me/profile-picture",
+  //     form
+  //   );
+  //   console.log(response);
+  // } catch (err) {
+  //   console.log(err);
+  // }
 };
 </script>
