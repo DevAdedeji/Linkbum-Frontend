@@ -47,7 +47,7 @@
         </div>
         <div
           class="hidden md:flex flex-col md:bg-transparent md:w-[40%] xl:w-1/2 items-center justify-center border-l-4 border-[#e9e9e9] lg:fixed lg:top-[10vh] lg:bottom-0 lg:right-0"
-          :class="showPreviewMobile ? 'w-full !flex absolute bg-[#fff]' : ''"
+          :class="showPreviewMobile ? 'w-full !flex fixed bg-[#fff]' : ''"
         >
           <span
             class="block md:hidden text-2xl ml-auto mr-4 pt-4 font-bold cursor-pointer"

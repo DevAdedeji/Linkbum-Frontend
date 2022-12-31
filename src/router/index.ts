@@ -49,14 +49,14 @@ const router = createRouter({
                 authRequired:true,
             }
         },
-        // {
-        //     name:'settings',
-        //     path:'/settings',
-        //     component:Settings,
-        //     meta:{
-        //         authRequired:true,
-        //     }
-        // },
+        {
+            name:'settings',
+            path:'/settings',
+            component:Settings,
+            meta:{
+                authRequired:true,
+            }
+        },
     ]
 })
 
