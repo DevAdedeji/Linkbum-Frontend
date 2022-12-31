@@ -10,11 +10,7 @@
         <form class="mb-5 pb-5 border-b border-[#e9e9e9]">
           <div class="flex gap-2">
             <div class="w-[100px] h-[100px] rounded-[50%]">
-              <img
-                :src="user.profilePic"
-                class="w-full h-full rounded-[50%]"
-                id="userDP"
-              />
+              <img :src="profilePic" class="w-full h-full rounded-[50%]" id="userDP" />
             </div>
 
             <label
@@ -60,7 +56,7 @@
             >
           </div>
           <button class="rounded-[10px] bg-green text-[#fff] py-3 w-[50%] md:w-[30%]">
-            Update Details
+            {{ updating ? "Updating..." : "Update Details" }}
           </button>
         </form>
       </div>
@@ -70,20 +66,83 @@
 
 <script lang="ts" setup>
 import { ref } from "vue";
-import { useRouter } from "vue-router";
 import TheHeader from "../components/TheHeader.vue";
 import { useTitle } from "vue-page-title";
 import ShareComponent from "../components/ShareComponent.vue";
 import { useShareComponent } from "../../composables/utils/showHide";
-import { useUserData } from "../../composables/User/getUserData";
 import { useToast } from "vue-toastification";
-const { getUserData, loading, user } = useUserData();
+import { useRouter } from "vue-router";
+import getData from "../../composables/Services/get/getData";
+import putData from "../../composables/Services/put/putData";
 const { title } = useTitle("Account Settings");
 const { showShareComponent } = useShareComponent();
+const toast = useToast();
+const router = useRouter();
+const id = localStorage.getItem("linkbum.userId");
+const loading = ref<boolean>(true);
+const user = ref({
+  username: "",
+  email: "",
+  bio: "",
+});
 const profilePic = ref("");
+const updating = ref<boolean>(false);
+
+const getUserData = () => {
+  getData(`api/user/me/${id}`)
+    .then((result) => {
+      loading.value = false;
+      user.value = result.data;
+      profilePic.value = result.data.profilePic;
+    })
+    .catch((err) => {
+      loading.value = false;
+      if (err.response.status === 404) {
+        toast.error("User not found, redirected to homepage", {
+          timeout: 3000,
+        });
+        router.push("/");
+      } else {
+        toast.error("Something went wrong, please try again", {
+          timeout: 3000,
+        });
+        router.push("/");
+      }
+    });
+};
+
 getUserData();
 
-const updateUserInfo = () => {};
+const updateUserInfo = () => {
+  let form = {};
+  const { email, username, bio } = user.value;
+  form = { email, username, bio };
+  updating.value = true;
+  putData("api/user/me", form)
+    .then((result) => {
+      updating.value = false;
+      if (result.data.success) {
+        localStorage.setItem("linkbum.username", result.data.user.username);
+        toast.success(result.data.message, {
+          timeout: 3000,
+        });
+        getUserData();
+      } else {
+        toast.success(result.data.message, {
+          timeout: 3000,
+        });
+      }
+    })
+    .catch((err) => {
+      updating.value = false;
+      toast.error(
+        err.response.data.username || err.response.data.email || err.response.data.error,
+        {
+          timeout: 3000,
+        }
+      );
+    });
+};
 
 // const upload = async (e: Event) => {
 //   let file = document.getElementById("profilePic")?.files[0];
