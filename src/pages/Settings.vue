@@ -6,7 +6,13 @@
       <div class="py-6">
         <h2 class="text-3xl text-center">My Account</h2>
       </div>
-      <div class="bg-[#fff] w-[90%] md:w-[70%] lg:w-[50%] mx-auto rounded-[10px] p-5">
+      <div v-if="loading" class="flex items-center justify-center py-10">
+        <Loader />
+      </div>
+      <div
+        class="bg-[#fff] w-[90%] md:w-[70%] lg:w-[50%] mx-auto rounded-[10px] p-5"
+        v-else
+      >
         <form class="mb-5 pb-5 border-b border-[#e9e9e9]">
           <div class="flex gap-2">
             <div class="w-[100px] h-[100px] rounded-[50%]">
@@ -75,6 +81,7 @@ import { useToast } from "vue-toastification";
 import { useRouter } from "vue-router";
 import getData from "../../composables/Services/get/getData";
 import putData from "../../composables/Services/put/putData";
+import Loader from "../components/Loader2.vue";
 const { title } = useTitle("Account Settings");
 const { showShareComponent } = useShareComponent();
 const toast = useToast();

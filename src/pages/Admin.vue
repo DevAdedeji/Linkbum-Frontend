@@ -87,9 +87,7 @@ import { useShareComponent } from "../../composables/utils/showHide";
 import Loader from "../components/Loader2.vue";
 import { useUserData } from "../../composables/User/getUserData";
 import TheLink from "../components/TheLink.vue";
-
 const { getUserData, loading, user } = useUserData();
-
 const { showAddLinkComponent, toggleAddLinkComponent } = useAddLinkComponent();
 const { showShareComponent } = useShareComponent();
 const { title } = useTitle("Dashboard");
