@@ -26,7 +26,7 @@ let user = ref({
     const getUserData = () => {
       let token =localStorage.getItem("auth.linkbum")
       axios.defaults.headers.common['Authorization'] = `${token}`
-        getData(`api/user/me`)
+        getData(`api/user/me/details`)
           .then((result) => {
             loading.value = false;
             user.value = result.data;

@@ -66,6 +66,7 @@
 
 <script lang="ts" setup>
 import { ref } from "vue";
+import axios from "axios";
 import TheHeader from "../components/TheHeader.vue";
 import { useTitle } from "vue-page-title";
 import ShareComponent from "../components/ShareComponent.vue";
@@ -87,7 +88,9 @@ const user = ref({
 const profilePic = ref("");
 const updating = ref<boolean>(false);
 const getUserData = () => {
-  getData(`api/user/me`)
+  let token = localStorage.getItem("auth.linkbum");
+  axios.defaults.headers.common["Authorization"] = `${token}`;
+  getData(`api/user/me/details`)
     .then((result) => {
       loading.value = false;
       user.value = result.data;
