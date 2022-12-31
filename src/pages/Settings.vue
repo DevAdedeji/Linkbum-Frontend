@@ -7,10 +7,14 @@
         <h2 class="text-3xl text-center">My Account</h2>
       </div>
       <div class="bg-[#fff] w-[90%] md:w-[70%] lg:w-[50%] mx-auto rounded-[10px] p-5">
-        <form @submit.prevent="upload" class="mb-5 pb-5 border-b border-[#e9e9e9]">
+        <form class="mb-5 pb-5 border-b border-[#e9e9e9]">
           <div class="flex gap-2">
             <div class="w-[100px] h-[100px] rounded-[50%]">
-              <img :src="user.profilePic" class="w-full h-full rounded-[50%]" />
+              <img
+                :src="user.profilePic"
+                class="w-full h-full rounded-[50%]"
+                id="userDP"
+              />
             </div>
 
             <label
@@ -76,14 +80,19 @@ import { useToast } from "vue-toastification";
 const { getUserData, loading, user } = useUserData();
 const { title } = useTitle("Account Settings");
 const { showShareComponent } = useShareComponent();
+const profilePic = ref("");
+getUserData();
 
 const updateUserInfo = () => {};
 
-getUserData();
-
-const upload = async (e: Event) => {
-  // let file = document.getElementById("profilePic")?.files[0];
-  // let form = new FormData();
-  // form.append("file", file);
-};
+// const upload = async (e: Event) => {
+//   let file = document.getElementById("profilePic")?.files[0];
+//   const fileReader = new FileReader();
+//   fileReader.readAsDataURL(file);
+//   fileReader.onload = (e) => {
+//     document.getElementById("userDP").src = e.target?.result;
+//   };
+//   let form = new FormData();
+//   form.append("file", file);
+// };
 </script>

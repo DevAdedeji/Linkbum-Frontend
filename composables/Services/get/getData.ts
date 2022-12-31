@@ -1,4 +1,4 @@
-import apiURL from "../config/config";
+import apiURL from "../../config/config";
 import axios from "axios";
 
 const getData = async (endpoint:string)=>{

@@ -23,7 +23,7 @@
     <input
       type="text"
       v-model="link.link"
-      class="font-medium w-full break-words outline-none rounded-md px-2"
+      class="font-medium text-[14px] sm:text-[16px] w-full break-words outline-none rounded-md px-2"
       :class="enableEdit ? 'outline-none' : 'bg-grey h-[48px]'"
       :disabled="enableEdit"
     />
@@ -57,7 +57,8 @@
 </template>
 
 <script lang="ts" setup>
-import { deleteLink, putData } from "../../composables/post/postData";
+import deleteLink from "../../composables/Services/delete/deleteData";
+import putData from "../../composables/Services/put/putData";
 import { useToast } from "vue-toastification";
 import { PropType, ref } from "vue";
 import { isValidUrl } from "../../composables/utils/validURL";

@@ -53,7 +53,7 @@
 import { useAddLinkComponent } from "../../composables/utils/showHide";
 import { ref, reactive } from "vue";
 import LoaderVue from "./Loader.vue";
-import postData from "../../composables/post/postData";
+import postData from "../../composables/Services/post/postData";
 import { isValidUrl } from "../../composables/utils/validURL";
 import { useToast } from "vue-toastification";
 const { toggleAddLinkComponent } = useAddLinkComponent();
