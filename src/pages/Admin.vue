@@ -85,52 +85,19 @@ import ShareComponent from "../components/ShareComponent.vue";
 import { useAddLinkComponent } from "../../composables/utils/showHide";
 import { useShareComponent } from "../../composables/utils/showHide";
 import Loader from "../components/Loader2.vue";
-import getData from "../../composables/get/getData";
+import { useUserData } from "../../composables/User/getUserData";
 import TheLink from "../components/TheLink.vue";
-import { useToast } from "vue-toastification";
-const toast = useToast();
-const router = useRouter();
+
+const { getUserData, loading, user } = useUserData();
+
 const { showAddLinkComponent, toggleAddLinkComponent } = useAddLinkComponent();
 const { showShareComponent } = useShareComponent();
 const { title } = useTitle("Dashboard");
 const username = localStorage.getItem("linkbum.username");
 const url = `https://linkbum.vercel.app/${username}`;
-const loading = ref<boolean>(true);
-let user = ref({
-  username: "",
-  profilePic: "",
-  links: [
-    {
-      title: "",
-      link: "",
-      _id: "",
-    },
-  ],
-});
 const previewIframe = ref<HTMLIFrameElement>();
-const id = localStorage.getItem("linkbum.userId");
 const showPreviewMobile = ref<boolean>(false);
-const getUserData = () => {
-  getData(`api/user/me/${id}`)
-    .then((result) => {
-      loading.value = false;
-      user.value = result.data;
-    })
-    .catch((err) => {
-      loading.value = false;
-      if (err.response.status === 404) {
-        toast.error("User not found, redirected to homepage", {
-          timeout: 3000,
-        });
-        router.push("/");
-      } else {
-        toast.error("Something went wrong, please try again", {
-          timeout: 3000,
-        });
-        router.push("/");
-      }
-    });
-};
+
 let iframe = document.querySelector(".previewIframe");
 getUserData();
 const reloadLinks = () => {
