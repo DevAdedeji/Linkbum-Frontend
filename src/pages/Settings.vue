@@ -15,10 +15,10 @@
       >
         <form class="mb-5 pb-5 border-b border-[#e9e9e9]">
           <div class="flex gap-2">
-            <div class="w-[100px] h-[100px] rounded-[50%]">
+            <div class="!w-[100px] !h-[100px] rounded-[50%]">
               <img
                 :src="profilePic"
-                class="w-full h-full rounded-[50%]"
+                class="!w-full !h-full rounded-[50%]"
                 id="userDP"
                 ref="userDP"
               />
@@ -26,7 +26,7 @@
 
             <label
               for="profilePic"
-              class="bg-green rounded-md py-1 px-2 text-[#fff] self-end cursor-pointer"
+              class="bg-green rounded-md py-1 px-2 text-[#fff] self-end cursor-pointer whitespace-nowrap"
               >Change Photo</label
             >
             <input
@@ -38,6 +38,7 @@
               ref="profilePicture"
               class="hidden"
             />
+            <Loader3 v-if="updatingUserDP" />
           </div>
         </form>
         <form class="flex flex-col gap-4 w-full" @submit.prevent="updateUserInfo">
@@ -69,7 +70,7 @@
             >
           </div>
           <button class="rounded-[10px] bg-green text-[#fff] py-3 w-[50%] md:w-[30%]">
-            {{ updating ? "Updating..." : "Update Details" }}
+            {{ updatingUserInfo ? "Updating..." : "Update Details" }}
           </button>
         </form>
       </div>
@@ -88,18 +89,22 @@ import { useRouter } from "vue-router";
 import getData from "../../composables/Services/get/getData";
 import putData from "../../composables/Services/put/putData";
 import Loader from "../components/Loader2.vue";
+import Loader3 from "../components/Loader3.vue";
 const { title } = useTitle("Account Settings");
 const { showShareComponent } = useShareComponent();
 const toast = useToast();
 const router = useRouter();
 const loading = ref<boolean>(true);
+const updatingUserDP = ref<boolean>(false);
+const updatingUserInfo = ref<boolean>(false);
 const user = ref({
   username: "",
   email: "",
   bio: "",
+  profilePic: "",
 });
 const profilePic = ref("");
-const updating = ref<boolean>(false);
+
 const profilePicture = ref<HTMLInputElement>() as any;
 const userDP = ref<HTMLImageElement>() as any;
 const getUserData = () => {
@@ -131,10 +136,10 @@ const updateUserInfo = () => {
   let form = {};
   const { email, username, bio } = user.value;
   form = { email, username, bio };
-  updating.value = true;
+  updatingUserInfo.value = true;
   putData("api/user/me", form)
     .then((result) => {
-      updating.value = false;
+      updatingUserInfo.value = false;
       if (result.data.success) {
         localStorage.setItem("linkbum.username", result.data.user.username);
         toast.success(result.data.message, {
@@ -148,12 +153,13 @@ const updateUserInfo = () => {
       }
     })
     .catch((err) => {
-      updating.value = false;
+      updatingUserInfo.value = false;
       toast.error(
         err.response.data.username ||
           err.response.data.email ||
           err.response.data.error ||
-          err.response.data.message,
+          err.response.data.message ||
+          "Something went wrong, pls try again",
         {
           timeout: 3000,
         }
@@ -170,8 +176,10 @@ const upload = async (e: Event) => {
   };
   let form = new FormData();
   form.append("file", file);
+  updatingUserDP.value = true;
   await putData("api/user/me/profile-picture", form)
     .then((result) => {
+      updatingUserDP.value = false;
       if (result.data.success) {
         toast.success(result.data.message, {
           timeout: 3000,
@@ -184,9 +192,17 @@ const upload = async (e: Event) => {
       }
     })
     .catch((err) => {
-      toast.error(err.response.data.error || err.response.data.message, {
-        timeout: 3000,
-      });
+      console.log(err.response);
+      userDP.value.src = user.value.profilePic;
+      updatingUserDP.value = false;
+      toast.error(
+        err.response.data.error ||
+          err.response.data.message ||
+          "Something went wrong, pls try again",
+        {
+          timeout: 3000,
+        }
+      );
     });
 };
 </script>

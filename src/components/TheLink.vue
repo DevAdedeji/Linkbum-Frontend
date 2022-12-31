@@ -98,7 +98,8 @@ const deleteCurentLink = (id: string) => {
         err.response.data.title ||
           err.response.data.link ||
           err.response.data.error ||
-          err.response.data.message,
+          err.response.data.message ||
+          "Something went wrong, pls try again",
         {
           timeout: 3000,
         }
@@ -138,7 +139,8 @@ const updateLink = (id: string) => {
             err.response.data.title ||
               err.response.data.link ||
               err.response.data.error ||
-              err.response.data.message,
+              err.response.data.message ||
+              "Something went wrong, pls try again",
             {
               timeout: 3000,
             }
