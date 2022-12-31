@@ -16,7 +16,12 @@
         <form class="mb-5 pb-5 border-b border-[#e9e9e9]">
           <div class="flex gap-2">
             <div class="w-[100px] h-[100px] rounded-[50%]">
-              <img :src="profilePic" class="w-full h-full rounded-[50%]" id="userDP" />
+              <img
+                :src="profilePic"
+                class="w-full h-full rounded-[50%]"
+                id="userDP"
+                ref="userDP"
+              />
             </div>
 
             <label
@@ -27,8 +32,10 @@
             <input
               type="file"
               accept="image/*"
+              @change="upload"
               name="profilePic"
               id="profilePic"
+              ref="profilePicture"
               class="hidden"
             />
           </div>
@@ -72,7 +79,6 @@
 
 <script lang="ts" setup>
 import { ref } from "vue";
-import axios from "axios";
 import TheHeader from "../components/TheHeader.vue";
 import { useTitle } from "vue-page-title";
 import ShareComponent from "../components/ShareComponent.vue";
@@ -94,9 +100,9 @@ const user = ref({
 });
 const profilePic = ref("");
 const updating = ref<boolean>(false);
+const profilePicture = ref<HTMLInputElement>() as any;
+const userDP = ref<HTMLImageElement>() as any;
 const getUserData = () => {
-  let token = localStorage.getItem("auth.linkbum");
-  axios.defaults.headers.common["Authorization"] = `${token}`;
   getData(`api/user/me/details`)
     .then((result) => {
       loading.value = false;
@@ -144,7 +150,10 @@ const updateUserInfo = () => {
     .catch((err) => {
       updating.value = false;
       toast.error(
-        err.response.data.username || err.response.data.email || err.response.data.error,
+        err.response.data.username ||
+          err.response.data.email ||
+          err.response.data.error ||
+          err.response.data.message,
         {
           timeout: 3000,
         }
@@ -152,32 +161,32 @@ const updateUserInfo = () => {
     });
 };
 
-// const upload = async (e: Event) => {
-//   let file = document.getElementById("profilePic")?.files[0];
-//   const fileReader = new FileReader();
-//   fileReader.readAsDataURL(file);
-//   fileReader.onload = (e) => {
-//     document.getElementById("userDP").src = e.target?.result;
-//   };
-//   let form = new FormData();
-//   form.append("file", file);
-//   await putData("api/user/me/profile-picture", form)
-//     .then((result) => {
-//       if (result.data.success) {
-//         toast.success(result.data.message, {
-//           timeout: 3000,
-//         });
-//         getUserData();
-//       } else {
-//         toast.success(result.data.message, {
-//           timeout: 3000,
-//         });
-//       }
-//     })
-//     .catch((err) => {
-//       toast.error(err.response.data.error, {
-//         timeout: 3000,
-//       });
-//     });
-// };
+const upload = async (e: Event) => {
+  let file = profilePicture.value.files[0];
+  const fileReader = new FileReader();
+  fileReader.readAsDataURL(file);
+  fileReader.onload = (e) => {
+    userDP.value.src = e.target?.result;
+  };
+  let form = new FormData();
+  form.append("file", file);
+  await putData("api/user/me/profile-picture", form)
+    .then((result) => {
+      if (result.data.success) {
+        toast.success(result.data.message, {
+          timeout: 3000,
+        });
+        getUserData();
+      } else {
+        toast.success(result.data.message, {
+          timeout: 3000,
+        });
+      }
+    })
+    .catch((err) => {
+      toast.error(err.response.data.error || err.response.data.message, {
+        timeout: 3000,
+      });
+    });
+};
 </script>

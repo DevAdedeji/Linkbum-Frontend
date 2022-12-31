@@ -95,7 +95,10 @@ const deleteCurentLink = (id: string) => {
     })
     .catch((err) => {
       toast.error(
-        err.response.data.title || err.response.data.link || err.response.data.error,
+        err.response.data.title ||
+          err.response.data.link ||
+          err.response.data.error ||
+          err.response.data.message,
         {
           timeout: 3000,
         }
@@ -130,8 +133,12 @@ const updateLink = (id: string) => {
       .catch((err) => {
         updating.value = false;
         if (err) {
+          console.log(err.response);
           toast.error(
-            err.response.data.title || err.response.data.link || err.response.data.error,
+            err.response.data.title ||
+              err.response.data.link ||
+              err.response.data.error ||
+              err.response.data.message,
             {
               timeout: 3000,
             }

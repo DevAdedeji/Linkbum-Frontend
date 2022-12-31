@@ -93,15 +93,14 @@ const { showShareComponent } = useShareComponent();
 const { title } = useTitle("Dashboard");
 const username = localStorage.getItem("linkbum.username");
 const url = `https://linkbum.vercel.app/${username}`;
-const previewIframe = ref<HTMLIFrameElement>();
+const previewIframe = ref<HTMLIFrameElement>() as any;
 const showPreviewMobile = ref<boolean>(false);
 
 let iframe = document.querySelector(".previewIframe");
 getUserData();
 const reloadLinks = () => {
   getUserData();
-  previewIframe.value?.contentWindow?.location.reload();
-  // document.querySelector(".previewIframe").src += "";
+  previewIframe.value.src = previewIframe.value.src;
 };
 </script>
 
