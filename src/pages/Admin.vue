@@ -102,7 +102,7 @@ let iframe = document.querySelector(".previewIframe");
 getUserData();
 const reloadLinks = () => {
   getUserData();
-  // previewIframe.value?.contentWindow?.location.reload();
+  previewIframe.value?.contentWindow?.location.reload();
   // document.querySelector(".previewIframe").src += "";
 };
 </script>
