@@ -117,7 +117,7 @@ const form = reactive({
 const loading = ref<boolean>(false);
 const registerUser = () => {
   loading.value = true;
-  auth(form, "/register")
+  auth(form, "register")
     .then((result) => {
       loading.value = false;
       if (result.data.success === true) {

@@ -78,7 +78,6 @@ const { title } = useTitle("Account Settings");
 const { showShareComponent } = useShareComponent();
 const toast = useToast();
 const router = useRouter();
-const id = localStorage.getItem("linkbum.userId");
 const loading = ref<boolean>(true);
 const user = ref({
   username: "",
@@ -87,9 +86,8 @@ const user = ref({
 });
 const profilePic = ref("");
 const updating = ref<boolean>(false);
-
 const getUserData = () => {
-  getData(`api/user/me/${id}`)
+  getData(`api/user/me`)
     .then((result) => {
       loading.value = false;
       user.value = result.data;
@@ -153,5 +151,23 @@ const updateUserInfo = () => {
 //   };
 //   let form = new FormData();
 //   form.append("file", file);
+//   await putData("api/user/me/profile-picture", form)
+//     .then((result) => {
+//       if (result.data.success) {
+//         toast.success(result.data.message, {
+//           timeout: 3000,
+//         });
+//         getUserData();
+//       } else {
+//         toast.success(result.data.message, {
+//           timeout: 3000,
+//         });
+//       }
+//     })
+//     .catch((err) => {
+//       toast.error(err.response.data.error, {
+//         timeout: 3000,
+//       });
+//     });
 // };
 </script>

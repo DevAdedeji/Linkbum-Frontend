@@ -94,7 +94,7 @@ const loading = ref<boolean>(false);
 // let showPassword = ref<boolean>(true);
 const loginUser = () => {
   loading.value = true;
-  auth(form, "/login")
+  auth(form, "login")
     .then((result) => {
       loading.value = false;
       if (result.data.success === true) {

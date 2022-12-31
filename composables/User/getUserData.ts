@@ -4,7 +4,9 @@ import { useToast } from "vue-toastification";
 import { useRouter } from "vue-router";
 const toast = useToast();
 const router = useRouter();
-const id = localStorage.getItem("linkbum.userId");
+import axios from "axios"
+
+
 
 export const useUserData = ()=>{
     const loading = ref<boolean>(true);
@@ -22,7 +24,9 @@ let user = ref({
   ],
 });
     const getUserData = () => {
-        getData(`api/user/me/${id}`)
+      let token =localStorage.getItem("auth.linkbum")
+      axios.defaults.headers.common['Authorization'] = `${token}`
+        getData(`api/user/me`)
           .then((result) => {
             loading.value = false;
             user.value = result.data;
