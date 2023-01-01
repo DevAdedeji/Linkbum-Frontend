@@ -17,6 +17,7 @@
         </div>
         <p class="font-bold capitalize text-xl text-green">@{{ user.username }}</p>
       </div>
+      <p class="pt-4 font-medium text-center w-[90%] mx-auto">{{ user.bio }}</p>
       <div class="w-full flex flex-col gap-5 pt-10 min-h-[50vh] md:min-h-[60vh]">
         <div v-for="link in user.links" class="w-full">
           <a
@@ -55,6 +56,7 @@ let loading = ref(true);
 let user = ref({
   username: "",
   profilePic: "",
+  bio: "",
   links: [
     {
       title: "",
