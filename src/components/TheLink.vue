@@ -134,7 +134,6 @@ const updateLink = (id: string) => {
       .catch((err) => {
         updating.value = false;
         if (err) {
-          console.log(err.response);
           toast.error(
             err.response.data.title ||
               err.response.data.link ||

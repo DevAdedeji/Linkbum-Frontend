@@ -69,11 +69,10 @@ const getUserData = () => {
     .then((result) => {
       loading.value = false;
       user.value = result.data;
-      console.log(user.value);
     })
     .catch((err) => {
       loading.value = false;
-      console.log(err.response);
+
       if (err.response.status === 404) {
         toast.error("User not found, redirected to homepage", {
           timeout: 3000,

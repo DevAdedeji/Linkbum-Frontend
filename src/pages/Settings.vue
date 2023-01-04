@@ -192,7 +192,6 @@ const upload = async (e: Event) => {
       }
     })
     .catch((err) => {
-      console.log(err.response);
       userDP.value.src = user.value.profilePic;
       updatingUserDP.value = false;
       toast.error(
