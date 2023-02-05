@@ -1,12 +1,9 @@
-import axios from "axios";
-import apiURL from "../../config/config";
-const deleteLink =async(endpoint:string)=>{
-    let token =localStorage.getItem("auth.linkbum")
-   axios.defaults.headers.common['Authorization'] = `${token}`
-    try{
-        const response  = await axios.delete(apiURL + endpoint);
+import api from "../../../services/api"
+const deleteLink = async (endpoint: string) => {
+    try {
+        const response = await api.delete(endpoint);
         return response;
-    }catch(err){
+    } catch (err) {
         throw err;
     }
 }

@@ -1,12 +1,10 @@
-import axios from "axios";
-import apiURL from "../../config/config";
-const putData =async(endpoint:string, data:Object)=>{
-    let token =localStorage.getItem("auth.linkbum")
-   axios.defaults.headers.common['Authorization'] = `${token}`
-    try{
-        const response  = await axios.put(apiURL + endpoint, data);
+import api from "../../../services/api"
+const putData = async (endpoint: string, data: Object) => {
+
+    try {
+        const response = await api.put(endpoint, data);
         return response;
-    }catch(err){
+    } catch (err) {
         throw err;
     }
 }
