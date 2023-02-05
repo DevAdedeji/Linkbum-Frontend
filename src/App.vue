@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!isOnLine" class="bg-red-500 text-white py-3 text-center">
+  <div v-if="!isOnLine" class="bg-red-500 text-white py-3 text-[14px] text-center">
     No internet connection
   </div>
   <router-view></router-view>
