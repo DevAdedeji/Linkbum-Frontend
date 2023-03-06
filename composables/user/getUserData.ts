@@ -1,5 +1,5 @@
 import { ref } from "vue";
-import getData from "../Services/get/getData";
+import getData from "../requests/get/getData";
 import { useToast } from "vue-toastification";
 import { useRouter } from "vue-router";
 const toast = useToast();

@@ -85,7 +85,7 @@ import ShareComponent from "../components/ShareComponent.vue";
 import { useAddLinkComponent } from "../../composables/utils/showHide";
 import { useShareComponent } from "../../composables/utils/showHide";
 import Loader from "../components/Loader2.vue";
-import { useUserData } from "../../composables/User/getUserData";
+import { useUserData } from "../../composables/user/getUserData";
 import TheLink from "../components/TheLink.vue";
 const { getUserData, loading, user } = useUserData();
 const { showAddLinkComponent, toggleAddLinkComponent } = useAddLinkComponent();

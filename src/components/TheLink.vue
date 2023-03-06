@@ -57,8 +57,8 @@
 </template>
 
 <script lang="ts" setup>
-import deleteLink from "../../composables/Services/delete/deleteData";
-import putData from "../../composables/Services/put/putData";
+import deleteLink from "../../composables/requests/delete/deleteData";
+import putData from "../../composables/requests/put/putData";
 import { useToast } from "vue-toastification";
 import { PropType, ref } from "vue";
 import { isValidUrl } from "../../composables/utils/validURL";
