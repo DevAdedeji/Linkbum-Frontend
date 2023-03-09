@@ -94,7 +94,7 @@
 </template>
 
 <script lang="ts" setup>
-import { useShareComponent } from "../../composables/utils/showHide";
+import { useShareComponent } from "../composables/utils/showHide";
 import { useRouter, useRoute } from "vue-router";
 const { toggleShareComponent } = useShareComponent();
 const router = useRouter();

@@ -6,7 +6,7 @@ import App from './App.vue'
 import Router from './router/index'
 import { pageTitle } from "vue-page-title"
 import VueSocialSharing from 'vue-social-sharing'
-import setup from '../services/setupInterceptors';
+import setup from './services/setupInterceptors';
 
 setup();
 

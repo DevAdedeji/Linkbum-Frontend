@@ -77,11 +77,11 @@
 import { ref, reactive, ComponentPublicInstance } from "vue";
 import LoaderVue from "../components/Loader.vue";
 import Header from "../components/Header.vue";
-import auth from "../../composables/auth/auth";
+import auth from "../composables/auth/auth";
 import { useTitle } from "vue-page-title";
 import { useRouter } from "vue-router";
 import { useToast } from "vue-toastification";
-import { usePassword } from "../../composables/utils/showHide";
+import { usePassword } from "../composables/utils/showHide";
 const { togglePassword, showPassword } = usePassword();
 const router = useRouter();
 const toast = useToast();

@@ -27,7 +27,7 @@
               <span class="border border-[#e9e9e9] p-3 rounded-lg">My links</span>
               <div class="grid grid-cols-1 gap-2 items-center justify-center pt-10">
                 <Loader class="pt-10" v-if="loading" />
-                <div v-for="Link in user.links" v-else>
+                <div v-for="Link, index in user.links" :key="index" v-else>
                   <TheLink
                     :link="Link"
                     @link-deleted="reloadLinks"
@@ -82,10 +82,10 @@ import { useRouter } from "vue-router";
 import TheHeader from "../components/TheHeader.vue";
 import AddLinkVue from "../components/AddLink.vue";
 import ShareComponent from "../components/ShareComponent.vue";
-import { useAddLinkComponent } from "../../composables/utils/showHide";
-import { useShareComponent } from "../../composables/utils/showHide";
+import { useAddLinkComponent } from "../composables/utils/showHide";
+import { useShareComponent } from "../composables/utils/showHide";
 import Loader from "../components/Loader2.vue";
-import { useUserData } from "../../composables/user/getUserData";
+import { useUserData } from "../composables/user/getUserData";
 import TheLink from "../components/TheLink.vue";
 const { getUserData, loading, user } = useUserData();
 const { showAddLinkComponent, toggleAddLinkComponent } = useAddLinkComponent();

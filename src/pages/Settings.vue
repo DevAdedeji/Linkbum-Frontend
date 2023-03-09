@@ -83,14 +83,14 @@ import { ref } from "vue";
 import TheHeader from "../components/TheHeader.vue";
 import { useTitle } from "vue-page-title";
 import ShareComponent from "../components/ShareComponent.vue";
-import { useShareComponent } from "../../composables/utils/showHide";
+import { useShareComponent } from "../composables/utils/showHide";
 import { useToast } from "vue-toastification";
 import { useRouter } from "vue-router";
-import getData from "../../composables/requests/get/getData";
-import putData from "../../composables/requests/put/putData";
 import Loader from "../components/Loader2.vue";
 import Loader3 from "../components/Loader3.vue";
+import useRequest from '../composables/requests';
 const { title } = useTitle("Account Settings");
+const {getData, putData} = useRequest()
 const { showShareComponent } = useShareComponent();
 const toast = useToast();
 const router = useRouter();

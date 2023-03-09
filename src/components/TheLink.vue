@@ -57,12 +57,12 @@
 </template>
 
 <script lang="ts" setup>
-import deleteLink from "../../composables/requests/delete/deleteData";
-import putData from "../../composables/requests/put/putData";
+import useRequest from '../composables/requests';
 import { useToast } from "vue-toastification";
 import { PropType, ref } from "vue";
-import { isValidUrl } from "../../composables/utils/validURL";
+import { isValidUrl } from "../composables/utils/validURL";
 const toast = useToast();
+const {deleteData, putData} = useRequest()
 interface Link {
   _id: string;
   title: string;
@@ -80,7 +80,7 @@ const updating = ref<boolean>(false);
 const showLinkIsInvalid = ref<boolean>(false);
 
 const deleteCurentLink = (id: string) => {
-  deleteLink(`api/link/post/${id}`)
+  deleteData(`api/link/post/${id}`)
     .then((result) => {
       if (result.data.success === true) {
         toast.success(result.data.message, {

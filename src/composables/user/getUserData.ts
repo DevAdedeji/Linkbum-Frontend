@@ -1,9 +1,11 @@
 import { ref } from "vue";
-import getData from "../requests/get/getData";
+import useRequest from '../requests';
 import { useToast } from "vue-toastification";
 import { useRouter } from "vue-router";
 const toast = useToast();
 const router = useRouter();
+
+const { getData } = useRequest()
 
 
 

@@ -50,13 +50,14 @@
 </template>
 
 <script lang="ts" setup>
-import { useAddLinkComponent } from "../../composables/utils/showHide";
+import { useAddLinkComponent } from "../composables/utils/showHide";
 import { ref, reactive } from "vue";
 import LoaderVue from "./Loader.vue";
-import postData from "../../composables/requests/post/postData";
-import { isValidUrl } from "../../composables/utils/validURL";
+import { isValidUrl } from "../composables/utils/validURL";
 import { useToast } from "vue-toastification";
+import useRequest from '../composables/requests';
 const { toggleAddLinkComponent } = useAddLinkComponent();
+const { postData } = useRequest()
 const loading = ref<boolean>(false);
 const toast = useToast();
 const form = reactive({
