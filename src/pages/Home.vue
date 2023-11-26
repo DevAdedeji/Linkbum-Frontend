@@ -1,9 +1,9 @@
 <template>
   <header class="min-h-screen bg-grey h-screen">
-    <nav class="h-[10vh] bg-white w-full" role="navigation">
+    <nav class="h-[10vh] bg-white w-full">
       <div class="w-[90%] mx-auto flex items-center justify-between py-4">
         <Logo />
-        <router-link :to="{ name: 'login' }" class=" bg-primary rounded-[10px] text-[#ffff] flex items-center justify-center px-8 py-2 font-black tracking-wider" aria-label="Go to login page">
+        <router-link :to="{ name: 'login' }" class=" bg-primary rounded-[10px] text-[#ffff] flex items-center justify-center px-8 py-2 font-black tracking-wider" aria-label="Go to login page" role="link">
           Login
         </router-link>
       </div>
