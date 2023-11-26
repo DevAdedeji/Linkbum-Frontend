@@ -1,6 +1,5 @@
 <template>
   <div class="min-h-screen">
-    <Header class="block lg:hidden" />
     <div
       class="flex flex-col lg:flex-row py-16 lg:py-0 lg:justify-between lg:items-center min-h-[80vh] lg:min-h-screen"
     >
@@ -8,6 +7,7 @@
         <form
           @submit.prevent="registerUser"
           class="w-[90%] sm:w-[60%] flex justify-center items-center flex-col gap-6"
+          role="form"
         >
           <h1 class="text-2xl lg:text-3xl font-bold text-center whitespace-nowrap">
             Create your account
@@ -17,24 +17,30 @@
             <input
               type="text"
               v-model.trim="form.username"
-              class="bg-grey rounded-[10px] w-full h-[48px] px-2 outline-none"
+              class="border border-gray-400 bg-transparent rounded-[10px] w-full h-[48px] px-2 outline-none"
+              name="username"
+              id="username"
               required
             />
           </div>
           <div class="flex flex-col gap-1 w-full">
-            <label for="username" class="text-[16px] font-semibold">Email </label>
+            <label for="email" class="text-[16px] font-semibold">Email </label>
             <input
               type="email"
               v-model="form.email"
-              class="bg-grey rounded-[10px] w-full h-[48px] px-2 outline-none"
+              class="border border-gray-400 bg-transparent rounded-[10px] w-full h-[48px] px-2 outline-none"
+              name="email"
+              id="email"
               required
             />
           </div>
           <div class="flex flex-col gap-1 w-full">
-            <label for="username" class="text-[16px] font-semibold">Gender </label>
+            <label for="gender" class="text-[16px] font-semibold">Gender </label>
             <select
               v-model="form.gender"
-              class="bg-grey rounded-[10px] w-full h-[48px] px-2 outline-none"
+              class="border border-gray-400 bg-transparent rounded-[10px] w-full h-[48px] px-2 outline-none"
+              name="gender"
+              id="gender"
               required
             >
               <option value="male">Male</option>
@@ -45,33 +51,31 @@
           <div class="flex flex-col gap-1 w-full">
             <label for="password" class="text-[16px] font-semibold">Password </label>
             <div
-              class="bg-grey rounded-[10px] w-full flex items-center justify-between h-[48px] px-2"
+              class="border border-gray-400 bg-transparent rounded-[10px] w-full flex items-center justify-between h-[48px] px-2"
             >
               <input
                 :type="showPassword ? 'password' : 'text'"
                 v-model="form.password"
                 class="bg-transparent w-[90%] outline-none"
+                name="password"
+                id="password"
                 required
               />
-              <img
-                src="../assets/eye.png"
-                alt="see-password-icon"
-                class="cursor-pointer"
-                :class="showPassword ? 'block' : 'hidden'"
-                @click="togglePassword"
-              />
-              <img
-                src="../assets/eye-off.png"
-                class="cursor-pointer"
-                :class="showPassword ? 'hidden' : 'block'"
-                alt="dont-see-password-icon"
-                @click="togglePassword"
-              />
+              <button class="cursor-pointer" :class="showPassword ? 'block' : 'hidden'" @click="togglePassword">
+                <img
+                  src="../assets/eye.png"
+                />
+              </button>
+              <button type="button" role="button" @click="togglePassword" :class="showPassword ? 'hidden' : 'block'" class="cursor-pointer">
+                <img
+                  src="../assets/eye-off.png"
+                />
+              </button>
             </div>
           </div>
           <button
             type="submit"
-            class="h-[48px] bg-green rounded-[10px] text-[#fff] w-full text-[16px] font-semibold flex items-center justify-center"
+            class="h-[48px] bg-primary rounded-[10px] text-[#fff] w-full text-[16px] font-semibold flex items-center justify-center"
           >
             <span v-if="!loading">Register</span>
             <LoaderVue v-if="loading" />
@@ -102,7 +106,6 @@ import { useRouter } from "vue-router";
 import { useToast } from "vue-toastification";
 import auth from "../composables/auth/auth";
 import LoaderVue from "../components/Loader.vue";
-import Header from "../components/Header.vue";
 import { usePassword } from "../composables/utils/showHide";
 const { togglePassword, showPassword } = usePassword();
 const { title } = useTitle("Register an account");
