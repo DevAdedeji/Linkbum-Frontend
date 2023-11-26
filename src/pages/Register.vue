@@ -7,7 +7,6 @@
         <form
           @submit.prevent="registerUser"
           class="w-[90%] sm:w-[60%] flex justify-center items-center flex-col gap-6"
-          role="form"
         >
           <h1 class="text-2xl lg:text-3xl font-bold text-center whitespace-nowrap">
             Create your account
@@ -64,11 +63,13 @@
               <button class="cursor-pointer" :class="showPassword ? 'block' : 'hidden'" @click="togglePassword" aria-label="Click to view password">
                 <img
                   src="../assets/eye.png"
+                  alt="view_password_icon"
                 />
               </button>
               <button type="button" role="button" @click="togglePassword" :class="showPassword ? 'hidden' : 'block'" class="cursor-pointer" aria-label="Click to hide password">
                 <img
                   src="../assets/eye-off.png"
+                  alt="hide_password_icon"
                 />
               </button>
             </div>
