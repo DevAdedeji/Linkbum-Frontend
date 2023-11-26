@@ -94,7 +94,7 @@
         <img
           src="../assets/01-Create-Account-1920x1920.webp"
           alt="image"
-          class="w-full h-full"
+          class="w-[100%] h-[100%]"
         />
       </div>
     </div>
