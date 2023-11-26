@@ -3,7 +3,7 @@
     <nav class="h-[10vh] bg-white w-full" role="navigation">
       <div class="w-[90%] mx-auto flex items-center justify-between py-4">
         <Logo />
-        <router-link :to="{ name: 'login' }" class=" bg-primary rounded-[10px] text-[#ffff] flex items-center justify-center px-8 py-2 font-semibold">
+        <router-link :to="{ name: 'login' }" class=" bg-primary rounded-[10px] text-[#ffff] flex items-center justify-center px-8 py-2 font-semibold" aria-label="Go to login page">
           Login
         </router-link>
       </div>
@@ -22,12 +22,12 @@
         <p class="text-black border-l-[4px] border-primary pl-3 font-semibold mb-8">Get your personalized link and share across all your favourite social media for free</p>
         <router-link
           :to="{ name: 'register' }"
-          class="h-[48px] bg-primary rounded-[10px] text-[#ffff] flex items-center justify-center px-10 font-semibold"
+          class="h-[48px] bg-primary rounded-[10px] text-[#ffff] flex items-center justify-center px-10 font-semibold" aria-label="Go to get started page"
           >Get Started</router-link
         >
       </div>
       <div class="w-full md:w-1/2 order-1 md:order-2 flex items-center justify-center">
-        <img src="../assets/undraw_buffer_wq43.svg" class="object-contain w-[90%] md:w-[70%]" alt="share your link to all social media image"/>
+        <img src="../assets/undraw_buffer_wq43.svg" class="object-contain w-[90%] h-full md:w-[70%]" alt="share your link to all social media image"/>
       </div>
     </section>
   </header>

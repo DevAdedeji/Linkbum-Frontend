@@ -61,12 +61,12 @@
                 id="password"
                 required
               />
-              <button class="cursor-pointer" :class="showPassword ? 'block' : 'hidden'" @click="togglePassword">
+              <button class="cursor-pointer" :class="showPassword ? 'block' : 'hidden'" @click="togglePassword" aria-label="Click to view password">
                 <img
                   src="../assets/eye.png"
                 />
               </button>
-              <button type="button" role="button" @click="togglePassword" :class="showPassword ? 'hidden' : 'block'" class="cursor-pointer">
+              <button type="button" role="button" @click="togglePassword" :class="showPassword ? 'hidden' : 'block'" class="cursor-pointer" aria-label="Click to hide password">
                 <img
                   src="../assets/eye-off.png"
                 />
@@ -76,6 +76,7 @@
           <button
             type="submit"
             class="h-[48px] bg-primary rounded-[10px] text-[#fff] w-full text-[16px] font-semibold flex items-center justify-center"
+            aria-label="Register an account"
           >
             <span v-if="!loading">Register</span>
             <LoaderVue v-if="loading" />
