@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-[#fff] rounded-lg w-full p-4">
+  <div class="bg-[#fff] border border-gray-200 shadow rounded-lg w-full p-4">
     <div class="flex items-center justify-between">
       <p class="font-semibold">Add Link</p>
       <button @click="toggleAddLinkComponent">
@@ -22,16 +22,20 @@
         <input
           type="text"
           v-model="form.title"
-          class="bg-grey h-[48px] outline-none px-2 rounded-md text-[14px]"
+          class="border border-gray-400 bg-transparent h-[48px] outline-none px-2 rounded-md text-[14px]"
+          name="title"
+          id="title"
           required
         />
       </div>
       <div class="flex flex-col gap-1">
-        <label for="title" class="font-medium">Link</label>
+        <label for="link" class="font-medium">Link</label>
         <input
           type="text"
-          class="bg-grey h-[48px] outline-none px-2 rounded-md text-[14px]"
+          class="border border-gray-400 bg-transparent h-[48px] outline-none px-2 rounded-md text-[14px]"
           v-model="form.link"
+          name="link"
+          id="link"
           required
         />
         <span class="text-[12px] text-red-500" v-if="showLinkIsInvalid"
@@ -40,7 +44,7 @@
       </div>
       <button
         type="submit"
-        class="bg-green text-[#fff] font-bold h-[48px] rounded-md mt-4 hover:scale-x-95 duration-500 flex items-center justify-center"
+        class="bg-primary text-[#fff] font-bold h-[48px] rounded-md mt-4 hover:scale-x-95 duration-500 flex items-center justify-center"
       >
         <span v-if="!loading">Add</span>
         <LoaderVue v-if="loading" />

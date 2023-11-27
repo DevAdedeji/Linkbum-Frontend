@@ -48,7 +48,7 @@
             <input
               type="text"
               v-model="user.username"
-              class="capitalize border-b border-[#e9e9e9] pb-2 outline-none"
+              class="capitalize border border-gray-400 bg-transparent p-2 rounded outline-none"
             />
           </div>
           <div class="flex flex-col gap-2">
@@ -56,7 +56,7 @@
             <input
               type="text"
               v-model="user.email"
-              class="border-b border-[#e9e9e9] pb-2 outline-none"
+              class="border border-gray-400 bg-transparent p-2 rounded outline-none"
             />
           </div>
           <div class="flex flex-col gap-2">
@@ -65,7 +65,7 @@
               id=""
               cols="10"
               rows="5"
-              class="outline-none border border-[#e9e9e9] p-2"
+              class="outline-none border border-gray-400 bg-transparent rounded p-2"
               v-model="user.bio"
               >{{ user.bio }}</textarea
             >
