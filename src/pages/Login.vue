@@ -6,7 +6,7 @@
       <div class="w-full lg:w-1/2 flex items-center justify-center">
         <form
           @submit.prevent="loginUser"
-          class="w-[90%] sm:w-[60%] flex justify-center items-center flex-col gap-10"
+          class="w-[90%] sm:w-[60%] flex justify-center items-center flex-col gap-6"
         >
           <h1 class="text-2xl lg:text-3xl font-bold text-center whitespace-nowrap">
             Login to your <span class="text-primary">Linkbum</span>
@@ -38,19 +38,21 @@
                 <img
                   src="../assets/eye.png"
                   alt="view_password_icon"
+                  class="w-[20px] h-[20px]"
                 />
               </button>
               <button type="button" role="button" @click="togglePassword" :class="showPassword ? 'hidden' : 'block'" class="cursor-pointer" aria-label="Click to hide password">
                 <img
                   src="../assets/eye-off.png"
                   alt="hide_password_icon"
+                  class="w-[20px] h-[20px]"
                 />
               </button>
             </div>
           </div>
           <button
             type="submit"
-            class="h-[48px] bg-primary rounded-[10px] text-[#fff] w-full text-xl font-semibold flex items-center justify-center"
+            class="h-[48px] bg-primary rounded-[10px] text-[#fff] w-full text-xl font-semibold flex items-center justify-center mt-6"
             aria-label="Login to your account"
           >
             <span v-if="!loading">Login</span>
@@ -68,7 +70,7 @@
         <img
           src="../assets/01-Create-Account-1920x1920.webp"
           alt="image"
-          class="w-[100%] h-[100%]"
+          class="w-full h-screen object-contain" 
         />
       </div>
     </div>
