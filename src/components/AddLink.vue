@@ -56,7 +56,7 @@
 <script lang="ts" setup>
 import { useAddLinkComponent } from "../composables/utils/showHide";
 import { ref, reactive } from "vue";
-import LoaderVue from "./Loader.vue";
+import LoaderVue from "./custom/Loader.vue";
 import { isValidUrl } from "../composables/utils/validURL";
 import { useToast } from "vue-toastification";
 import useRequest from '../composables/requests';
@@ -70,6 +70,7 @@ const form = reactive({
 });
 const showLinkIsInvalid = ref<boolean>(false);
 const emit = defineEmits(["linkAdded"]);
+
 const addLink = () => {
   const isLinkValid = isValidUrl(form.link);
   if (isLinkValid) {

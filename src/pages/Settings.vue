@@ -1,6 +1,6 @@
 <template>
   <div class="relative bg-grey min-h-screen">
-    <TheHeader class="sm:fixed sm:left-0 sm:right-0 sm:top-0" />
+    <Navbar class="sm:fixed sm:left-0 sm:right-0 sm:top-0" />
     <ShareComponent v-if="showShareComponent" />
     <section class="py-4 sm:pt-[15vh] sm:pb-[5vh]">
       <div class="py-6">
@@ -81,15 +81,16 @@
 
 <script lang="ts" setup>
 import { ref } from "vue";
-import TheHeader from "../components/TheHeader.vue";
+import Navbar from "../components/Navbar.vue";
 import { useTitle } from "vue-page-title";
 import ShareComponent from "../components/ShareComponent.vue";
 import { useShareComponent } from "../composables/utils/showHide";
 import { useToast } from "vue-toastification";
 import { useRouter } from "vue-router";
-import Loader from "../components/Loader2.vue";
-import Loader3 from "../components/Loader3.vue";
+import Loader from "../components/custom/Loader2.vue";
+import Loader3 from "../components/custom/Loader3.vue";
 import useRequest from '../composables/requests';
+
 const { title } = useTitle("Account Settings");
 const {getData, putData} = useRequest()
 const { showShareComponent } = useShareComponent();

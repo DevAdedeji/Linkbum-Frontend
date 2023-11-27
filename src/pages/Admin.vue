@@ -1,6 +1,6 @@
 <template>
   <div class="relative bg-grey min-h-screen">
-    <TheHeader class="sm:fixed sm:left-0 sm:right-0 sm:top-0" />
+    <Navbar class="sm:fixed sm:left-0 sm:right-0 sm:top-0" />
     <ShareComponent v-if="showShareComponent" />
     <div class="pt-4 sm:pt-[10vh]">
       <div class="lg:relative min-h-screen flex justify-between">
@@ -29,7 +29,7 @@
               <div class="grid grid-cols-1 gap-2 items-center justify-center">
                 <Loader class="pt-10" v-if="loading" />
                 <div v-for="Link, index in user.links" :key="index" v-else>
-                  <TheLink
+                  <LinkContainer
                     :link="Link"
                     :index="index+1"
                     @link-deleted="reloadLinks"
@@ -83,14 +83,16 @@
 <script lang="ts" setup>
 import { useTitle } from "vue-page-title";
 import { ref } from "vue";
-import TheHeader from "../components/TheHeader.vue";
+import Navbar from "../components/Navbar.vue";
 import AddLinkVue from "../components/AddLink.vue";
 import ShareComponent from "../components/ShareComponent.vue";
 import { useAddLinkComponent } from "../composables/utils/showHide";
 import { useShareComponent } from "../composables/utils/showHide";
-import Loader from "../components/Loader2.vue";
+import Loader from "../components/custom/Loader2.vue";
 import { useUserData } from "../composables/user/getUserData";
-import TheLink from "../components/TheLink.vue";
+import LinkContainer from "../components/LinkContainer.vue";
+
+
 const { getUserData, loading, user } = useUserData();
 const { showAddLinkComponent, toggleAddLinkComponent } = useAddLinkComponent();
 const { showShareComponent } = useShareComponent();

@@ -104,12 +104,12 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, reactive, ComponentPublicInstance } from "vue";
+import { ref, reactive } from "vue";
 import { useTitle } from "vue-page-title";
 import { useRouter } from "vue-router";
 import { useToast } from "vue-toastification";
 import auth from "../composables/auth/auth";
-import LoaderVue from "../components/Loader.vue";
+import LoaderVue from "../components/custom/Loader.vue";
 import { usePassword } from "../composables/utils/showHide";
 const { togglePassword, showPassword } = usePassword();
 const { title } = useTitle("Register an account");

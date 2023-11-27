@@ -44,7 +44,7 @@ import { useTitle } from "vue-page-title";
 import { useRoute, useRouter } from "vue-router";
 import { useToast } from "vue-toastification";
 import Footer from "../components/Footer.vue";
-import Loader from "../components/Loader2.vue";
+import Loader from "../components/custom/Loader2.vue";
 import useRequest from '../composables/requests';
 
 const {getData} = useRequest()

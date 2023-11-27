@@ -69,7 +69,7 @@
             width="24"
             height="24"
             viewBox="0 0 24 24"
-            style="fill: #0000FF; transform: ; msfilter: "
+            style="fill: #164081; transform: ; msfilter: "
           >
             <path d="M16 13v-2H7V8l-5 4 5 4v-3z"></path>
             <path
