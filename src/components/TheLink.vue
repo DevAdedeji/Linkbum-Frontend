@@ -5,7 +5,7 @@
       width="24"
       height="24"
       viewBox="0 0 24 24"
-      style="fill: rgba(61, 167, 100, 1); transform: ; msfilter: "
+      style="fill: #0000FF; transform: ; msfilter: "
       class="ml-auto cursor-pointer mb-2"
       @click="enableUpdateLink"
     >
@@ -33,7 +33,7 @@
     <div class="mt-4 flex items-center justify-between">
       <button
         @click="updateLink(link._id)"
-        class="bg-green rounded-md p-2 text-[#fff] text-[14px]"
+        class="bg-primary rounded-md py-2 px-4 text-[#fff] text-[14px]"
         v-if="!enableEdit"
       >
         {{ updating ? "Updating..." : "Update" }}
@@ -43,7 +43,7 @@
         width="24"
         height="24"
         viewBox="0 0 24 24"
-        style="fill: rgba(61, 167, 100, 1); transform: ; msfilter: "
+        style="fill: #0000FF; transform: ; msfilter: "
         class="ml-auto cursor-pointer"
         @click="deleteCurentLink(link._id)"
       >

@@ -7,7 +7,7 @@
         <div class="relative w-full flex flex-col items-center md:w-[60%] xl:w-1/2">
           <div class="w-[90%] sm:w-[80%] mx-auto py-6">
             <button
-              class="bg-green w-full h-[48px] font-bold rounded-[20px] text-[#fff] hover:scale-x-95 duration-500 flex items-center justify-center gap-1"
+              class="bg-primary w-full h-[48px] font-bold rounded-[20px] text-[#fff] hover:scale-x-95 duration-500 flex items-center justify-center gap-1"
               v-if="!showAddLinkComponent"
               @click="toggleAddLinkComponent"
             >

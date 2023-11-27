@@ -26,7 +26,8 @@
 
             <label
               for="profilePic"
-              class="bg-green rounded-md py-1 px-2 text-[#fff] self-end cursor-pointer whitespace-nowrap"
+              class="bg-primary rounded-md py-1 px-2 text-[#fff] self-end cursor-pointer whitespace-nowrap font-bold tracing-wide"
+              role="button"
               >Change Photo</label
             >
             <input
@@ -69,7 +70,7 @@
               >{{ user.bio }}</textarea
             >
           </div>
-          <button class="rounded-[10px] bg-green text-[#fff] py-3 w-[50%] md:w-[30%]">
+          <button class="rounded-[10px] bg-primary font-bold tracking-wide text-[#fff] py-3 w-[50%] md:w-[30%]">
             {{ updatingUserInfo ? "Updating..." : "Update Details" }}
           </button>
         </form>
