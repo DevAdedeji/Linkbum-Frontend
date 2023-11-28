@@ -27,7 +27,7 @@
 
             <label
               for="profilePic"
-              class="bg-primary rounded-md py-1 px-2 text-[#fff] self-end cursor-pointer whitespace-nowrap font-bold tracing-wide"
+              class="hidden bg-primary rounded-md py-1 px-2 text-[#fff] self-end cursor-pointer whitespace-nowrap font-bold tracing-wide"
               aria-label="Change photo button"
               >Change Photo</label
             >
@@ -151,10 +151,12 @@ const upload = async (e: Event) => {
   fileReader.readAsDataURL(file);
   fileReader.onload = (e) => {
     userDP.value.src = e.target?.result;
+    // console.log(userDP.value.src)
   };
-  await uploadImage(file)
 
-  updatingUserDP.value = true;
+  // await uploadImage(file)
+
+  // updatingUserDP.value = true;
   // await putData("api/user/me/profile-picture", form)
   //   .then((result) => {
   //     updatingUserDP.value = false;

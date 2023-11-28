@@ -7,7 +7,7 @@
         <div class="relative w-full flex flex-col items-center md:w-[60%] xl:w-1/2">
           <div class="w-[90%] sm:w-[80%] mx-auto py-6">
             <h1 class="text-2xl font-bold text-center sm:text-left pb-3">Customize your links</h1>
-            <p class="pb-5">Add, edit, delete links below and share your link to your audiences</p>
+            <p class="pb-5 text-center sm:text-left">Add, edit, delete links below and share your link to your audiences</p>
             <button
               class="bg-primary w-full h-[48px] font-bold rounded-[20px] text-[#fff] hover:scale-x-95 duration-500 flex items-center justify-center gap-1 tracing-wide"
               v-if="!showAddLinkComponent"
