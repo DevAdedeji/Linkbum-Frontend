@@ -1,7 +1,7 @@
 <template>
   <div class="bg-[#fff] rounded-lg p-4 shadow border border-gray-200 mb-3">
     <div class="w-full flex items-center justify-between mb-2">
-      <h3 class="font-semibold text-xl">{{ `Link #${index}` }}</h3>
+      <h2 class="font-semibold text-xl">{{ `Link #${index}` }}</h2>
       <button class="ml-auto cursor-pointer mb-2" @click="enableUpdateLink" aria-label="Update link">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -16,20 +16,30 @@
         </svg>
       </button>
     </div>
-    <input
-      type="text"
-      v-model="link.title"
-      class="capitalize my-2 font-bold w-full outline-none rounded-md"
-      :class="enableEdit ? 'outline-none' : 'border border-gray-400 bg-transparent h-[48px] px-2'"
-      :disabled="enableEdit"
-    />
-    <input
-      type="text"
-      v-model="link.link"
-      class="font-medium text-[14px] sm:text-[16px] w-full break-words outline-none rounded-md my-2"
-      :class="enableEdit ? 'outline-none' : 'border border-gray-400 bg-transparent h-[48px] px-2'"
-      :disabled="enableEdit"
-    />
+    <div class="flex flex-col">
+      <label for="title" class="font-bold">Title: </label>
+      <input
+        type="text"
+        v-model="link.title"
+        class="capitalize w-full outline-none rounded-md"
+        :class="enableEdit ? 'outline-none' : 'border border-gray-400 bg-transparent h-[48px] px-2'"
+        :disabled="enableEdit"
+        id="title"
+        name="title"
+      />
+    </div>
+    <div class="flex flex-col my-2">
+      <label for="link" class="font-bold">Link: </label>
+      <input
+        type="text"
+        v-model="link.link"
+        class="font-medium text-[14px] sm:text-[16px] w-full break-words outline-none rounded-md"
+        :class="enableEdit ? 'outline-none' : 'border border-gray-400 bg-transparent h-[48px] px-2'"
+        :disabled="enableEdit"
+        name="link"
+        id="link"
+      />
+    </div>
     <span class="text-[12px] text-red-500" v-if="showLinkIsInvalid"
       >Link should be a valid URL</span
     >

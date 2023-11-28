@@ -21,13 +21,14 @@
                 class="!w-full !h-full rounded-[50%]"
                 id="userDP"
                 ref="userDP"
+                :alt="`${user.username} profile picture`"
               />
             </div>
 
             <label
               for="profilePic"
               class="bg-primary rounded-md py-1 px-2 text-[#fff] self-end cursor-pointer whitespace-nowrap font-bold tracing-wide"
-              role="button"
+              aria-label="Change photo button"
               >Change Photo</label
             >
             <input
@@ -44,29 +45,34 @@
         </form>
         <form class="flex flex-col gap-4 w-full" @submit.prevent="updateUserInfo">
           <div class="flex flex-col gap-2">
-            <p class="text-[12px]">Username</p>
+            <label class="text-[12px]" for="username">Username</label>
             <input
               type="text"
               v-model="user.username"
+              name="username"
+              id="username"
               class="capitalize border border-gray-400 bg-transparent p-2 rounded outline-none"
             />
           </div>
           <div class="flex flex-col gap-2">
-            <p class="text-[12px]">Email</p>
+            <label class="text-[12px]" for="email">Email</label>
             <input
-              type="text"
+              type="email"
               v-model="user.email"
+              name="email"
+              id="email"
               class="border border-gray-400 bg-transparent p-2 rounded outline-none"
             />
           </div>
           <div class="flex flex-col gap-2">
-            <p class="text-[12px]">Bio</p>
+            <label class="text-[12px]" for="bio">Bio</label>
             <textarea
-              id=""
+              id="bio"
               cols="10"
               rows="5"
               class="outline-none border border-gray-400 bg-transparent rounded p-2"
               v-model="user.bio"
+              name="bio"
               >{{ user.bio }}</textarea
             >
           </div>

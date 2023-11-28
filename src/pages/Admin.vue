@@ -70,6 +70,7 @@
               width="100%"
               height="100%"
               ref="previewIframe"
+              title="Preview how your link will look like when visitors visit"
             >
               <p>Your browser doesn't support this feature</p>
             </iframe>
