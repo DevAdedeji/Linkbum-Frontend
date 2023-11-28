@@ -85,6 +85,7 @@ import { useTitle } from "vue-page-title";
 import { useRouter } from "vue-router";
 import { useToast } from "vue-toastification";
 import { usePassword } from "../composables/utils/showHide";
+import api from '../services/api'
 const { togglePassword, showPassword } = usePassword();
 const router = useRouter();
 const toast = useToast();
@@ -94,31 +95,30 @@ const form = reactive({
   password: "",
 });
 const loading = ref<boolean>(false);
-// let showPassword = ref<boolean>(true);
-const loginUser = () => {
+
+const loginUser = async () => {
   loading.value = true;
-  auth(form, "login")
-    .then((result) => {
-      loading.value = false;
-      if (result.data.success === true) {
-        localStorage.setItem("auth.linkbum", result.data.token);
-        localStorage.setItem("linkbum.userId", result.data.user._id);
-        localStorage.setItem("linkbum.username", result.data.user.username);
-        router.push("/admin");
-      } else {
-        toast.error(result.data.message, {
-          timeout: 3000,
-        });
+  try{
+    const response = await api.post('api/auth/login', form)
+    if (response.data.success === true) {
+      localStorage.setItem("auth.linkbum", response.data.token);
+      localStorage.setItem("linkbum.userId", response.data.user._id);
+      localStorage.setItem("linkbum.username", response.data.user.username);
+      router.push("/admin");
+    } else {
+      toast.error(response.data.message, {
+        timeout: 3000,
+      });
+    }
+  } catch (err: any) {
+    toast.error(
+      err.response.data.username || err.response.data.email || err.response.data.error,
+      {
+        timeout: 3000,
       }
-    })
-    .catch((err) => {
-      loading.value = false;
-      toast.error(
-        err.response.data.username || err.response.data.email || err.response.data.error,
-        {
-          timeout: 3000,
-        }
-      );
-    });
+    );
+  } finally {
+    loading.value = false
+  }
 };
 </script>

@@ -111,6 +111,8 @@ import { useToast } from "vue-toastification";
 import auth from "../composables/auth/auth";
 import LoaderVue from "../components/custom/Loader.vue";
 import { usePassword } from "../composables/utils/showHide";
+import api from '../services/api'
+
 const { togglePassword, showPassword } = usePassword();
 const { title } = useTitle("Register an account");
 const router = useRouter();
@@ -122,26 +124,24 @@ const form = reactive({
   gender: "",
 });
 const loading = ref<boolean>(false);
-const registerUser = () => {
+const registerUser = async () => {
   loading.value = true;
-  auth(form, "register")
-    .then((result) => {
-      loading.value = false;
-      if (result.data.success === true) {
-        toast.success(result.data.message, {
-          timeout: 2000,
-        });
-        router.push("/login");
+  try {
+    const response = await api.post('api/auth/register', form)
+    if (response.data.success === true) {
+      toast.success(response.data.message, {
+        timeout: 2000,
+      });
+      router.push("/login");
+    }
+  } catch (err:any){
+    loading.value = false;
+    toast.error(
+      err.response.data.username || err.response.data.email || err.response.data.error,
+      {
+        timeout: 3000,
       }
-    })
-    .catch((err) => {
-      loading.value = false;
-      toast.error(
-        err.response.data.username || err.response.data.email || err.response.data.error,
-        {
-          timeout: 3000,
-        }
-      );
-    });
+    );
+  }
 };
 </script>

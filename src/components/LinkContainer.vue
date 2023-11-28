@@ -45,7 +45,7 @@
     >
     <div class="mt-4 flex items-center justify-between">
       <button
-        @click="updateLink(link._id)"
+        @click="editLink(link._id)"
         class="bg-primary rounded-md py-2 px-4 text-[#fff] text-[14px]"
         v-if="!enableEdit"
       >
@@ -70,12 +70,11 @@
 </template>
 
 <script lang="ts" setup>
-import useRequest from '../composables/requests';
-import { useToast } from "vue-toastification";
 import { PropType, ref } from "vue";
 import { isValidUrl } from "../composables/utils/validURL";
-const toast = useToast();
-const {deleteData, putData} = useRequest()
+import useDeleteLink from '../composables/Link/delete'
+import useUpdateLink from '../composables/Link/update'
+
 interface Link {
   _id: string;
   title: string;
@@ -91,78 +90,27 @@ const props = defineProps({
     required: true,
   }
 });
-const emit = defineEmits(["linkDeleted", "linkUpdated"]);
+
+const { deleteLink } = useDeleteLink()
+const { updateLink, updating, showLinkIsInvalid } = useUpdateLink()
+
+
 const enableEdit = ref<boolean>(true);
-const updating = ref<boolean>(false);
-const showLinkIsInvalid = ref<boolean>(false);
 
-const deleteCurentLink = (id: string) => {
-  deleteData(`api/link/post/${id}`)
-    .then((result) => {
-      if (result.data.success === true) {
-        toast.success(result.data.message, {
-          timeout: 3000,
-        });
-        emit("linkDeleted");
-      } else {
-        toast.error(result.data.message, {
-          timeout: 3000,
-        });
-      }
-    })
-    .catch((err) => {
-      toast.error(
-        err.response.data.title ||
-          err.response.data.link ||
-          err.response.data.error ||
-          err.response.data.message ||
-          "Something went wrong, pls try again",
-        {
-          timeout: 3000,
-        }
-      );
-    });
+const deleteCurentLink = async (id: string) => {
+    await deleteLink(id)
 };
-
 const enableUpdateLink = () => {
   enableEdit.value = !enableEdit.value;
 };
-const updateLink = (id: string) => {
+const editLink = async (id: string) => {
   const { link, title } = props.link;
-  const isLinkValid = isValidUrl(link);
+  const data = {id, link, title}
+  // const isLinkValid = isValidUrl(link);
+  const isLinkValid = true;
   if (isLinkValid) {
-    updating.value = true;
-    putData(`api/link/post/${id}`, { link, title })
-      .then((result) => {
-        updating.value = false;
-        showLinkIsInvalid.value = false;
-        if (result.data.success) {
-          toast.success(result.data.message, {
-            timeout: 3000,
-          });
-          enableEdit.value = true;
-          emit("linkUpdated");
-        } else {
-          toast.success(result.data.message, {
-            timeout: 3000,
-          });
-        }
-      })
-      .catch((err) => {
-        updating.value = false;
-        if (err) {
-          toast.error(
-            err.response.data.title ||
-              err.response.data.link ||
-              err.response.data.error ||
-              err.response.data.message ||
-              "Something went wrong, pls try again",
-            {
-              timeout: 3000,
-            }
-          );
-        }
-      });
+    await updateLink(data)
+    enableUpdateLink()
   } else {
     showLinkIsInvalid.value = true;
     setTimeout(() => {

@@ -8,14 +8,6 @@ export const usePassword = () => {
 };
 
 
-const showAddLinkComponent = ref<boolean>(false);
-export const useAddLinkComponent = ()=>{
-  const toggleAddLinkComponent = ()=>{
-    showAddLinkComponent.value = !showAddLinkComponent.value
-  }
-  return {showAddLinkComponent, toggleAddLinkComponent};
-}
-
 const showShareComponent = ref<boolean>(false)
 export const useShareComponent = () =>{
   const toggleShareComponent = ()=>{

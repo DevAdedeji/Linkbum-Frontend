@@ -92,87 +92,57 @@ import { useTitle } from "vue-page-title";
 import ShareComponent from "../components/ShareComponent.vue";
 import { useShareComponent } from "../composables/utils/showHide";
 import { useToast } from "vue-toastification";
-import { useRouter } from "vue-router";
 import Loader from "../components/custom/Loader2.vue";
 import Loader3 from "../components/custom/Loader3.vue";
-import useRequest from '../composables/requests';
+import useFetchLink from '../composables/Link/fetch'
+import useUploadImage from '../composables/cloudinary'
+import api from '../services/api'
 
+const  { fetchUserData, user, loading } = useFetchLink()
+const { uploadImage } = useUploadImage()
 const { title } = useTitle("Account Settings");
-const {getData, putData} = useRequest()
 const { showShareComponent } = useShareComponent();
 const toast = useToast();
-const router = useRouter();
-const loading = ref<boolean>(true);
 const updatingUserDP = ref<boolean>(false);
 const updatingUserInfo = ref<boolean>(false);
-const user = ref({
-  username: "",
-  email: "",
-  bio: "",
-  profilePic: "",
-});
 const profilePic = ref("");
 
 const profilePicture = ref<HTMLInputElement>() as any;
 const userDP = ref<HTMLImageElement>() as any;
-const getUserData = () => {
-  getData(`api/user/me/details`)
-    .then((result) => {
-      loading.value = false;
-      user.value = result.data;
-      profilePic.value = result.data.profilePic;
-    })
-    .catch((err) => {
-      loading.value = false;
-      if (err.response.status === 404) {
-        toast.error("User not found, redirected to homepage", {
-          timeout: 3000,
-        });
-        router.push("/");
-      } else {
-        toast.error("Something went wrong, please try again", {
-          timeout: 3000,
-        });
-        router.push("/");
-      }
-    });
-};
 
-getUserData();
+fetchUserData()
 
-const updateUserInfo = () => {
+const updateUserInfo = async () => {
   let form = {};
   const { email, username, bio } = user.value;
   form = { email, username, bio };
   updatingUserInfo.value = true;
-  putData("api/user/me", form)
-    .then((result) => {
-      updatingUserInfo.value = false;
-      if (result.data.success) {
-        localStorage.setItem("linkbum.username", result.data.user.username);
-        toast.success(result.data.message, {
+  try {
+    const response = await api.put("api/user/me", form)
+    if(response.data.success){
+      localStorage.setItem("linkbum.username", response.data.user.username);
+      toast.success(response.data.message, {
+        timeout: 3000,
+      });
+      fetchUserData();
+    } else {
+        toast.success(response.data.message, {
           timeout: 3000,
         });
-        getUserData();
-      } else {
-        toast.success(result.data.message, {
-          timeout: 3000,
-        });
+    }
+  } catch(err: any){
+    updatingUserInfo.value = false;
+    toast.error(
+      err.response.data.username ||
+        err.response.data.email ||
+        err.response.data.error ||
+        err.response.data.message ||
+        "Something went wrong, pls try again",
+      {
+        timeout: 3000,
       }
-    })
-    .catch((err) => {
-      updatingUserInfo.value = false;
-      toast.error(
-        err.response.data.username ||
-          err.response.data.email ||
-          err.response.data.error ||
-          err.response.data.message ||
-          "Something went wrong, pls try again",
-        {
-          timeout: 3000,
-        }
-      );
-    });
+    );
+  }
 };
 
 const upload = async (e: Event) => {
@@ -182,34 +152,34 @@ const upload = async (e: Event) => {
   fileReader.onload = (e) => {
     userDP.value.src = e.target?.result;
   };
-  let form = new FormData();
-  form.append("file", file);
+  await uploadImage(file)
+
   updatingUserDP.value = true;
-  await putData("api/user/me/profile-picture", form)
-    .then((result) => {
-      updatingUserDP.value = false;
-      if (result.data.success) {
-        toast.success(result.data.message, {
-          timeout: 3000,
-        });
-        getUserData();
-      } else {
-        toast.success(result.data.message, {
-          timeout: 3000,
-        });
-      }
-    })
-    .catch((err) => {
-      userDP.value.src = user.value.profilePic;
-      updatingUserDP.value = false;
-      toast.error(
-        err.response.data.error ||
-          err.response.data.message ||
-          "Something went wrong, pls try again",
-        {
-          timeout: 3000,
-        }
-      );
-    });
+  // await putData("api/user/me/profile-picture", form)
+  //   .then((result) => {
+  //     updatingUserDP.value = false;
+  //     if (result.data.success) {
+  //       toast.success(result.data.message, {
+  //         timeout: 3000,
+  //       });
+  //       fetchUserData();
+  //     } else {
+  //       toast.success(result.data.message, {
+  //         timeout: 3000,
+  //       });
+  //     }
+  //   })
+  //   .catch((err) => {
+  //     userDP.value.src = user.value.profilePic;
+  //     updatingUserDP.value = false;
+  //     toast.error(
+  //       err.response.data.error ||
+  //         err.response.data.message ||
+  //         "Something went wrong, pls try again",
+  //       {
+  //         timeout: 3000,
+  //       }
+  //     );
+  //   });
 };
 </script>

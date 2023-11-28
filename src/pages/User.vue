@@ -45,9 +45,7 @@ import { useRoute, useRouter } from "vue-router";
 import { useToast } from "vue-toastification";
 import Footer from "../components/Footer.vue";
 import Loader from "../components/custom/Loader2.vue";
-import useRequest from '../composables/requests';
-
-const {getData} = useRequest()
+import api from '../services/api'
 
 const route = useRoute();
 const router = useRouter();
@@ -66,27 +64,27 @@ let user = ref({
     },
   ],
 });
-const getUserData = () => {
-  getData(`api/user/${username}`)
-    .then((result) => {
+const getUserData = async () => {
+  try {
+    const response = await api.get(`api/user/${username}`)
+    if(response.status === 200){
       loading.value = false;
-      user.value = result.data;
-    })
-    .catch((err) => {
-      loading.value = false;
-
-      if (err.response.status === 404) {
+      user.value = response.data;
+    }
+  } catch (err:any){
+    loading.value = false;
+    if (err.response.status === 404) {
         toast.error("User not found, redirected to homepage", {
           timeout: 3000,
         });
         router.push("/");
-      } else {
+    } else {
         toast.error("Something went wrong, please try again", {
           timeout: 3000,
         });
         router.push("/");
-      }
-    });
+    }
+  }
 };
 getUserData();
 </script>

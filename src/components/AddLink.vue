@@ -16,7 +16,7 @@
         </svg>
       </button>
     </div>
-    <form class="flex flex-col gap-2 py-4" @submit.prevent="addLink">
+    <form class="flex flex-col gap-2 py-4" @submit.prevent="createLink">
       <div class="flex flex-col gap-1">
         <label for="title" class="font-medium">Title</label>
         <input
@@ -54,55 +54,11 @@
 </template>
 
 <script lang="ts" setup>
-import { useAddLinkComponent } from "../composables/utils/showHide";
-import { ref, reactive } from "vue";
+import useLink from "../composables/Link";
 import LoaderVue from "./custom/Loader.vue";
-import { isValidUrl } from "../composables/utils/validURL";
-import { useToast } from "vue-toastification";
-import useRequest from '../composables/requests';
-const { toggleAddLinkComponent } = useAddLinkComponent();
-const { postData } = useRequest()
-const loading = ref<boolean>(false);
-const toast = useToast();
-const form = reactive({
-  title: "",
-  link: "",
-});
-const showLinkIsInvalid = ref<boolean>(false);
-const emit = defineEmits(["linkAdded"]);
+import useCreateLink from '../composables/Link/create'
 
-const addLink = () => {
-  const isLinkValid = isValidUrl(form.link);
-  if (isLinkValid) {
-    loading.value = true;
-    postData("api/link/post", form)
-      .then((result) => {
-        loading.value = false;
-        if (result.data.sucess === true) {
-          toggleAddLinkComponent();
-          toast.success(result.data.message, {
-            timeout: 3000,
-          });
-          form.link = "";
-          form.title = "";
-          emit("linkAdded");
-        } else {
-          toast.error(result.data.message, {
-            timeout: 3000,
-          });
-        }
-      })
-      .catch((err) => {
-        toast.error(
-          err.response.data.title || err.response.data.link || err.response.data.error,
-          {
-            timeout: 3000,
-          }
-        );
-        loading.value = false;
-      });
-  } else {
-    showLinkIsInvalid.value = true;
-  }
-};
+const { toggleAddLinkComponent } = useLink()
+const { loading, form, createLink, showLinkIsInvalid } = useCreateLink()
+
 </script>

@@ -24,7 +24,7 @@
               </svg>
               <span>Add link</span>
             </button>
-            <AddLinkVue v-if="showAddLinkComponent" @link-added="reloadLinks" />
+            <AddLinkVue v-if="showAddLinkComponent" />
             <div class="pt-10">
               <div class="grid grid-cols-1 gap-2 items-center justify-center">
                 <Loader class="pt-10" v-if="loading" />
@@ -32,8 +32,6 @@
                   <LinkContainer
                     :link="Link"
                     :index="index+1"
-                    @link-deleted="reloadLinks"
-                    @link-updated="reloadLinks"
                   />
                 </div>
               </div>
@@ -87,28 +85,20 @@ import { ref } from "vue";
 import Navbar from "../components/Navbar.vue";
 import AddLinkVue from "../components/AddLink.vue";
 import ShareComponent from "../components/ShareComponent.vue";
-import { useAddLinkComponent } from "../composables/utils/showHide";
+import useLink from "../composables/Link";
+import useFetchLink from '../composables/Link/fetch'
 import { useShareComponent } from "../composables/utils/showHide";
 import Loader from "../components/custom/Loader2.vue";
-import { useUserData } from "../composables/user/getUserData";
 import LinkContainer from "../components/LinkContainer.vue";
 
-
-const { getUserData, loading, user } = useUserData();
-const { showAddLinkComponent, toggleAddLinkComponent } = useAddLinkComponent();
+const  { fetchUserData, loading, user } = useFetchLink()
+const { showAddLinkComponent, toggleAddLinkComponent, url, previewIframe } = useLink()
 const { showShareComponent } = useShareComponent();
 const { title } = useTitle("Dashboard");
-const username = localStorage.getItem("linkbum.username");
-const url = `https://linkbum.vercel.app/${username}`;
-const previewIframe = ref<HTMLIFrameElement>() as any;
 const showPreviewMobile = ref<boolean>(false);
 
 let iframe = document.querySelector(".previewIframe");
-getUserData();
-const reloadLinks = () => {
-  getUserData();
-  previewIframe.value.src = previewIframe.value.src;
-};
+fetchUserData();
 </script>
 
 <style>
