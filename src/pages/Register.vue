@@ -108,7 +108,6 @@ import { ref, reactive } from "vue";
 import { useTitle } from "vue-page-title";
 import { useRouter } from "vue-router";
 import { useToast } from "vue-toastification";
-import auth from "../composables/auth/auth";
 import LoaderVue from "../components/custom/Loader.vue";
 import { usePassword } from "../composables/utils/showHide";
 import api from '../services/api'

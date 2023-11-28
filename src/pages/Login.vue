@@ -80,7 +80,6 @@
 <script lang="ts" setup>
 import { ref, reactive } from "vue";
 import LoaderVue from "../components/custom/Loader.vue";
-import auth from "../composables/auth/auth";
 import { useTitle } from "vue-page-title";
 import { useRouter } from "vue-router";
 import { useToast } from "vue-toastification";
