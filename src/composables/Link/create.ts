@@ -21,8 +21,7 @@ const useCreateLink = () => {
     const { toggleAddLinkComponent, reloadPreviewIframe } = useLink()
     const { fetchUserData } = useFetchLink()
     const createLink = async ( ) => {
-        // const isLinkValid = isValidUrl(form.link);
-        const isLinkValid = true
+        const isLinkValid = isValidUrl(form.link);
         if(isLinkValid){
             showLinkIsInvalid.value = false
             try{

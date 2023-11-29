@@ -106,8 +106,7 @@ const enableUpdateLink = () => {
 const editLink = async (id: string) => {
   const { link, title } = props.link;
   const data = {id, link, title}
-  // const isLinkValid = isValidUrl(link);
-  const isLinkValid = true;
+  const isLinkValid = isValidUrl(link);
   if (isLinkValid) {
     await updateLink(data)
     enableUpdateLink()

@@ -18,34 +18,34 @@ const useUpdateLink = () => {
     const { reloadPreviewIframe } = useLink()
     
     const updateLink = async (data: Link) => {
-        try {
-            updating.value = true
-            const response = await api.put(`api/link/post/${data.id}`, { link: data.link, title: data.title })
-            if(response.data.success === true){
-                fetchUserData()
-                reloadPreviewIframe()
-                toast.success(response.data.message, {
-                    timeout: 3000,
-                });
-            } else {
-                toast.error(response.data.message, {
-                  timeout: 3000,
-                });
-            }
-        } catch(err:any){
-            toast.error(
-                err.response.data.title ||
-                  err.response.data.link ||
-                  err.response.data.error ||
-                  err.response.data.message ||
-                  "Something went wrong, pls try again",
-                {
-                  timeout: 3000,
-                }
-            );
-        } finally {
-            updating.value = false
+    try {
+        updating.value = true
+        const response = await api.put(`api/link/post/${data.id}`, { link: data.link, title: data.title })
+        if(response.data.success === true){
+            fetchUserData()
+            reloadPreviewIframe()
+            toast.success(response.data.message, {
+                timeout: 3000,
+            });
+        } else {
+            toast.error(response.data.message, {
+                timeout: 3000,
+            });
         }
+    } catch(err:any){
+        toast.error(
+            err.response.data.title ||
+                err.response.data.link ||
+                err.response.data.error ||
+                err.response.data.message ||
+                "Something went wrong, pls try again",
+            {
+                timeout: 3000,
+            }
+        );
+    } finally {
+        updating.value = false
+    }
     }
 
     return { updating, updateLink, showLinkIsInvalid }

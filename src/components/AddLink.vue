@@ -60,5 +60,4 @@ import useCreateLink from '../composables/Link/create'
 
 const { toggleAddLinkComponent } = useLink()
 const { loading, form, createLink, showLinkIsInvalid } = useCreateLink()
-
 </script>
