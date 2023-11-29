@@ -4,7 +4,7 @@
       <Loader />
     </div>
     <div
-      class="w-[90%] md:w-[70%] lg:w-[60%] min-h-full flex flex-col items-center pt-8 pb-2"
+      class="w-[90%] md:w-[70%] lg:w-[50%] min-h-full flex flex-col items-center pt-8 pb-2"
       v-else
     >
       <div class="flex flex-col items-center gap-2">

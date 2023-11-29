@@ -27,7 +27,7 @@
 
             <label
               for="profilePic"
-              class="hidden bg-primary rounded-md py-1 px-2 text-[#fff] self-end cursor-pointer whitespace-nowrap font-bold tracing-wide"
+              class=" bg-primary rounded-md py-1 px-2 text-[#fff] self-end cursor-pointer whitespace-nowrap font-bold tracing-wide"
               aria-label="Change photo button"
               >Change Photo</label
             >
@@ -151,37 +151,35 @@ const upload = async (e: Event) => {
   fileReader.readAsDataURL(file);
   fileReader.onload = (e) => {
     userDP.value.src = e.target?.result;
-    // console.log(userDP.value.src)
   };
 
-  // await uploadImage(file)
+  const { imageURL } = await uploadImage(file)
 
-  // updatingUserDP.value = true;
-  // await putData("api/user/me/profile-picture", form)
-  //   .then((result) => {
-  //     updatingUserDP.value = false;
-  //     if (result.data.success) {
-  //       toast.success(result.data.message, {
-  //         timeout: 3000,
-  //       });
-  //       fetchUserData();
-  //     } else {
-  //       toast.success(result.data.message, {
-  //         timeout: 3000,
-  //       });
-  //     }
-  //   })
-  //   .catch((err) => {
-  //     userDP.value.src = user.value.profilePic;
-  //     updatingUserDP.value = false;
-  //     toast.error(
-  //       err.response.data.error ||
-  //         err.response.data.message ||
-  //         "Something went wrong, pls try again",
-  //       {
-  //         timeout: 3000,
-  //       }
-  //     );
-  //   });
+  updatingUserDP.value = true;
+  try{
+    const response = await api.put("api/user/me/profile-picture", {profilePic: imageURL})
+    console.log(response)
+    if (response.data.success) {
+        toast.success(response.data.message, {
+          timeout: 3000,
+        });
+        fetchUserData();
+    } else {
+        toast.success(response.data.message, {
+          timeout: 3000,
+        });
+    }
+  } catch (err: any) {
+    toast.error(
+      err.response.data.error ||
+        err.response.data.message ||
+        "Something went wrong, pls try again",
+      {
+        timeout: 3000,
+      }
+    );
+  } finally{
+    updatingUserDP.value = false;
+  }
 };
 </script>
