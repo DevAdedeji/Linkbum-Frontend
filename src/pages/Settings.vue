@@ -3,16 +3,16 @@
     <Navbar class="sm:fixed sm:left-0 sm:right-0 sm:top-0" />
     <ShareComponent v-if="showShareComponent" />
     <section class="py-4 sm:pt-[15vh] sm:pb-[5vh]">
-      <div class="py-6">
-        <h2 class="text-3xl text-center">My Account</h2>
-      </div>
       <div v-if="loading" class="flex items-center justify-center py-10">
         <Loader />
       </div>
       <div
-        class="bg-[#fff] w-[90%] md:w-[70%] lg:w-[50%] mx-auto rounded-[10px] p-5"
+        class="bg-[#fff] border border-gray-200 shadow w-[90%] md:w-[70%] lg:w-[50%] mx-auto rounded-[10px] p-5"
         v-else
       >
+        <div class="py-6">
+          <h2 class="text-3xl text-center font-semibold">My Account</h2>
+        </div>
         <form class="mb-5 pb-5 border-b border-[#e9e9e9]">
           <div class="flex gap-2">
             <div class="!w-[100px] !h-[100px] rounded-[50%]">
@@ -45,7 +45,7 @@
         </form>
         <form class="flex flex-col gap-4 w-full" @submit.prevent="updateUserInfo">
           <div class="flex flex-col gap-2">
-            <label class="text-[12px]" for="username">Username</label>
+            <label class="text-[14px]" for="username">Username</label>
             <input
               type="text"
               v-model="user.username"
@@ -55,7 +55,7 @@
             />
           </div>
           <div class="flex flex-col gap-2">
-            <label class="text-[12px]" for="email">Email</label>
+            <label class="text-[14px]" for="email">Email</label>
             <input
               type="email"
               v-model="user.email"
@@ -65,7 +65,7 @@
             />
           </div>
           <div class="flex flex-col gap-2">
-            <label class="text-[12px]" for="bio">Bio</label>
+            <label class="text-[14px]" for="bio">Bio</label>
             <textarea
               id="bio"
               cols="10"
@@ -152,13 +152,10 @@ const upload = async (e: Event) => {
   fileReader.onload = (e) => {
     userDP.value.src = e.target?.result;
   };
-
   const { imageURL } = await uploadImage(file)
-
   updatingUserDP.value = true;
   try{
     const response = await api.put("api/user/me/profile-picture", {profilePic: imageURL})
-    console.log(response)
     if (response.data.success) {
         toast.success(response.data.message, {
           timeout: 3000,
